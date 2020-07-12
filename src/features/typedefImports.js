@@ -25,7 +25,6 @@ class TypedefImports {
      */
     this._externalExpression = /^\s*\*\s*@external\s+/mi;
 
-    events.on(EVENT_NAMES.parseBegin, this._reset.bind(this));
     events.on(EVENT_NAMES.newComment, this._readComment.bind(this));
     events.on(EVENT_NAMES.commentsReady, this._replaceComments.bind(this));
   }
@@ -41,11 +40,11 @@ class TypedefImports {
    * @param {string} source
    */
   _replaceComments(source) {
-    return this._comments.reduce(
+    const result = this._comments.reduce(
       (acc, comment) => {
         let lines = comment.split('\n');
         if (comment.match(this._externalExpression)) {
-          lines = lines.map((line) => (line.match(this._importExpression) ? '' : line));
+          lines = lines.map((line) => (line.match(this._importExpression) ? ' * ' : line));
         } else {
           lines = lines.map(() => '');
         }
@@ -54,9 +53,9 @@ class TypedefImports {
       },
       source,
     );
-  }
-  _reset() {
+
     this._comments = [];
+    return result;
   }
 }
 
