@@ -2,6 +2,7 @@
 /* eslint-disable no-new */
 const { EventEmitter } = require('events');
 const jsdocEnv = require('jsdoc/lib/jsdoc/env');
+const jsdocTemplateHelper = require('jsdoc/lib/jsdoc/util/templateHelper');
 const { EVENT_NAMES } = require('./constants');
 const { Utils } = require('./utils');
 const features = require('./features');
@@ -12,7 +13,7 @@ const options = {
   typedefImports: true,
   intersections: true,
   modulesOnMemberOf: true,
-  modulesTypesShortname: true,
+  modulesTypesShortName: true,
   typeScriptUtilityTypes: true,
   tagsReplacement: {},
   ...(jsdocEnv.conf.tsUtils || {}),
@@ -24,6 +25,14 @@ const events = new EventEmitter();
 
 if (options.typeScriptUtilityTypes) {
   new features.TypedefImports(events, EVENT_NAMES);
+}
+
+if (options.modulesTypesShortName) {
+  new features.ModulesTypesShortName(
+    events,
+    jsdocTemplateHelper,
+    EVENT_NAMES,
+  );
 }
 
 module.exports.handlers = {
