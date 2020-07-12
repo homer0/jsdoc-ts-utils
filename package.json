@@ -1,0 +1,39 @@
+{
+  "name": "jsdoc-ts-utils",
+  "description": "A plugin with utilities to make your TypeScript-like docs JSDoc valid",
+  "homepage": "https://github.com/homer0/jsdoc-ts-utils",
+  "version": "0.0.0-development",
+  "repository": "homer0/jsdoc-ts-utils",
+  "author": "Leonardo Apiwan (@homer0) <me@homer0.com>",
+  "license": "MIT",
+  "dependencies": {
+    "jsdoc": "^3.6.4"
+  },
+  "devDependencies": {
+    "eslint": "^7.4.0",
+    "eslint-plugin-homer0": "^5.0.0",
+    "husky": "^4.2.5",
+    "leasot": "^11.1.0",
+    "lint-staged": "^10.2.11"
+  },
+  "engine-strict": true,
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "./utils/hooks/pre-commit",
+      "post-merge": "./utils/hooks/post-merge"
+    }
+  },
+  "lint-staged": {
+    "*.js": "eslint"
+  },
+  "main": "src/plugin.js",
+  "scripts": {
+    "lint": "./utils/scripts/lint",
+    "lint:full": "./utils/scripts/lint-full",
+    "test": "echo \"soon...\"",
+    "todo": "./utils/scripts/todo"
+  }
+}
