@@ -1,5 +1,3 @@
-// @ts-check
-
 /**
  * @typedef {import('events').EventEmitter} EventEmitter
  * @typedef {import('./constants')['EVENT_NAMES']} EVENT_NAMES
