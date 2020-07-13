@@ -1,4 +1,4 @@
-jest.unmock('../src/plugin');
+jest.unmock('../src');
 jest.mock('events');
 jest.mock('jsdoc/lib/jsdoc/env', () => ({
   conf: {},
@@ -23,7 +23,7 @@ describe('plugin', () => {
     };
     EventEmitter.mockImplementationOnce(() => events);
     // eslint-disable-next-line global-require
-    const plugin = require('../src/plugin');
+    const plugin = require('../src');
     // eslint-disable-next-line global-require
     const features = require('../src/features');
     return {
