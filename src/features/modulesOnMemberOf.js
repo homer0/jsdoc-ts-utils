@@ -9,6 +9,7 @@ class ModulesOnMemberOf {
    * @param {EVENT_NAMES}  EVENT_NAMES To get the name of the events the class needs to listen for.
    */
   constructor(events, EVENT_NAMES) {
+    // Setup the listener.
     events.on(EVENT_NAMES.commentsReady, this._fixModulesPaths.bind(this));
   }
   /**

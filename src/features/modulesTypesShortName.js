@@ -24,7 +24,7 @@ class ModulesTypesShortName {
      * @ignore
      */
     this._jsdocTemplateHelper = jsdocTemplateHelper;
-    // Setup the listener
+    // Setup the listener.
     events.on(EVENT_NAMES.parseBegin, this._monkyPatchRegisterLink.bind(this));
   }
   /**

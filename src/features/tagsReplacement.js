@@ -25,7 +25,7 @@ class TagsReplacement {
      * @ignore
      */
     this._dictionary = dictionary;
-
+    // Setup the listener.
     events.on(EVENT_NAMES.commentsReady, this._replaceTags.bind(this));
   }
   /**

@@ -20,20 +20,13 @@ class TypedefImports {
     /**
      * The expression that validates that `import(...)` is being used inside a `typedef`
      * statement.
+     * This expression is used on multiple places, that's why it's declared as a property.
      *
      * @type {RegExp}
      * @access protected
      * @ignore
      */
     this._importExpression = /\{\s*import\s*\(/i;
-    /**
-     * The expression that validates that a JSDoc block also has an `external` statement.
-     *
-     * @type {RegExp}
-     * @access protected
-     * @ignore
-     */
-    this._externalExpression = /^\s*\*\s*@external\s+/mi;
     // Setup the listeners.
     events.on(EVENT_NAMES.newComment, this._readComment.bind(this));
     events.on(EVENT_NAMES.commentsReady, this._replaceComments.bind(this));
@@ -67,7 +60,7 @@ class TypedefImports {
     const result = this._comments.reduce(
       (acc, comment) => {
         let lines = comment.split('\n');
-        if (comment.match(this._externalExpression)) {
+        if (comment.match(/^\s*\*\s*@external\s+/mi)) {
           lines = lines.map((line) => (line.match(this._importExpression) ? ' * ' : line));
         } else {
           lines = lines.map(() => '');

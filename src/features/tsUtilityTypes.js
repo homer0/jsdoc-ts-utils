@@ -63,7 +63,6 @@ class TSUtilitiesTypes {
       OmitThisParameter: 'omitthisparameter',
       ThisType: 'thistypet',
     };
-
     // Setup the listeners.
     events.on(EVENT_NAMES.parseBegin, this._findTypedefFile.bind(this));
     events.on(EVENT_NAMES.commentsReady, this._addTypes.bind(this));

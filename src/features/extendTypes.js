@@ -44,31 +44,7 @@ class ExtendTypes {
      * @ignore
      */
     this._commentsWithProperties = [];
-    /**
-     * The expression that validates that an intersection is being used inside a `typedef`.
-     *
-     * @type {RegExp}
-     * @access protected
-     * @ignore
-     */
-    this._intersectionExpression = /\*\s*@typedef\s+\{\s*\w+\s*&\s*\w+/i;
-    /**
-     * The expression that validates that a JSDoc block has a `typedef` statement.
-     *
-     * @type {RegExp}
-     * @access protected
-     * @ignore
-     */
-    this._typeDefExpression = /\*\s*@typedef\s+\{/i;
-    /**
-     * The expression that validates that a JSDoc block has a `augments`/`extends` statement.
-     *
-     * @type {RegExp}
-     * @access protected
-     * @ignore
-     */
-    this._extendsTypeExpression = /\*\s*@(?:augments|extends)\s+\w+/i;
-
+    // Setup the listeners.
     events.on(EVENT_NAMES.newComment, this._readComment.bind(this));
     events.on(EVENT_NAMES.commentsReady, this._replaceComments.bind(this));
   }
@@ -129,11 +105,11 @@ class ExtendTypes {
    * @ignore
    */
   _readComment(comment) {
-    if (comment.match(this._intersectionExpression)) {
+    if (comment.match(/\*\s*@typedef\s+\{\s*\w+\s*&\s*\w+/i)) {
       this._commentsWithIntersections.push(comment);
     } else if (
-      comment.match(this._typeDefExpression) &&
-      comment.match(this._extendsTypeExpression)
+      comment.match(/\*\s*@typedef\s+\{/i) &&
+      comment.match(/\*\s*@(?:augments|extends)\s+\w+/i)
     ) {
       this._commentsWithProperties.push(this._getCommentWithPropertiesInfo(comment));
     }
