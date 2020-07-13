@@ -11,7 +11,7 @@ const features = require('./features');
  */
 const options = {
   typedefImports: true,
-  intersections: true,
+  extendTypes: true,
   modulesOnMemberOf: true,
   modulesTypesShortName: true,
   typeScriptUtilityTypes: true,
