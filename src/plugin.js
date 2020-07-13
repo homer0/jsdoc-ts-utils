@@ -5,7 +5,6 @@ const jsdocEnv = require('jsdoc/lib/jsdoc/env');
 const jsdocTemplateHelper = require('jsdoc/lib/jsdoc/util/templateHelper');
 const { EVENT_NAMES } = require('./constants');
 const features = require('./features');
-
 /**
  * @type {TSUtilsOptions}
  */
@@ -70,8 +69,9 @@ if (options.tagsReplacement && Object.keys(options.tagsReplacement).length) {
   );
 }
 
+module.exports.options = options;
 module.exports.handlers = {
-  parseBeing(event) {
+  parseBegin(event) {
     events.emit(EVENT_NAMES.parseBegin, event);
   },
   beforeParse(event) {
@@ -84,7 +84,7 @@ module.exports.handlers = {
 
     // eslint-disable-next-line no-param-reassign
     event.source = events.listeners(EVENT_NAMES.commentsReady).reduce(
-      (acc, listener) => listener(acc),
+      (acc, listener) => listener(acc, filename),
       source,
     );
   },
