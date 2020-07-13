@@ -38,6 +38,7 @@ class TypedefImports {
   }
   /**
    * @param {string} source
+   * @returns {string}
    */
   _replaceComments(source) {
     const result = this._comments.reduce(
