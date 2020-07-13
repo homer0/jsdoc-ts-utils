@@ -4,8 +4,8 @@ const { EventEmitter } = require('events');
 const jsdocEnv = require('jsdoc/lib/jsdoc/env');
 const jsdocTemplateHelper = require('jsdoc/lib/jsdoc/util/templateHelper');
 const { EVENT_NAMES } = require('./constants');
-const { Utils } = require('./utils');
 const features = require('./features');
+
 /**
  * @type {TSUtilsOptions}
  */
@@ -18,6 +18,21 @@ const options = {
   tagsReplacement: null,
   ...(jsdocEnv.conf.tsUtils || {}),
 };
+
+/**
+ * @param {string}  source
+ * @param {CommentsTraverseFn}  fn
+ */
+const traverseComments = (source, fn) => {
+  const regex = /\/\*\*\s*\n(?:[^\*]|\*[^\/])*\*\//g;
+  let match = regex.exec(source);
+  while (match) {
+    const [comment] = match;
+    fn(comment);
+    match = regex.exec(source);
+  }
+};
+
 /**
  * @type {EventEmitter}
  */
@@ -61,7 +76,7 @@ module.exports.handlers = {
   },
   beforeParse(event) {
     const { source, filename } = event;
-    Utils.traverseComments(source, (comment) => events.emit(
+    traverseComments(source, (comment) => events.emit(
       EVENT_NAMES.newComment,
       comment,
       filename,

@@ -5,6 +5,11 @@
  */
 
 /**
+ * @callback CommentsTraverseFn
+ * @param {string} comment
+ */
+
+/**
  * @typedef {Object} TSUtilsOptions
  * @property {boolean} [typedefImports=true]
  * @property {boolean} [extendTypes=true]
