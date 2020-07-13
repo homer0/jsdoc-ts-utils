@@ -7,9 +7,9 @@
 /**
  * @typedef {Object} TSUtilsOptions
  * @property {boolean} [typedefImports=true]
- * @property {boolean} [intersections=true]
+ * @property {boolean} [extendTypes=true]
  * @property {boolean} [modulesOnMemberOf=true]
  * @property {boolean} [modulesTypesShortName=true]
  * @property {boolean} [typeScriptUtilityTypes=true]
- * @property {Object.<string,string>} [tagsReplacement={}]
+ * @property {?Object.<string,string>} [tagsReplacement=null]
  */

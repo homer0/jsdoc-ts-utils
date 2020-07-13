@@ -12,10 +12,10 @@ const features = require('./features');
 const options = {
   typedefImports: true, // done
   extendTypes: true, // done
-  modulesOnMemberOf: true,
+  modulesOnMemberOf: true, // done
   modulesTypesShortName: true, // done
   typeScriptUtilityTypes: true, // done
-  tagsReplacement: {},
+  tagsReplacement: null,
   ...(jsdocEnv.conf.tsUtils || {}),
 };
 /**
@@ -23,8 +23,16 @@ const options = {
  */
 const events = new EventEmitter();
 
-if (options.typeScriptUtilityTypes) {
+if (options.typedefImports) {
   new features.TypedefImports(events, EVENT_NAMES);
+}
+
+if (options.extendTypes) {
+  new features.ExtendTypes(events, EVENT_NAMES);
+}
+
+if (options.modulesOnMemberOf) {
+  new features.ModulesOnMemberOf(events, EVENT_NAMES);
 }
 
 if (options.modulesTypesShortName) {
