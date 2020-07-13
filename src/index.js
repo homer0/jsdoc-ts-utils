@@ -9,11 +9,12 @@ const features = require('./features');
  * @type {TSUtilsOptions}
  */
 const options = {
-  typedefImports: true, // done
-  extendTypes: true, // done
-  modulesOnMemberOf: true, // done
-  modulesTypesShortName: true, // done
-  typeScriptUtilityTypes: true, // done
+  typedefImports: true,
+  extendTypes: true,
+  modulesOnMemberOf: true,
+  modulesTypesShortName: true,
+  parentTag: true,
+  typeScriptUtilityTypes: true,
   tagsReplacement: null,
   ...(jsdocEnv.conf.tsUtils || {}),
 };
@@ -53,6 +54,14 @@ if (options.modulesTypesShortName) {
   new features.ModulesTypesShortName(
     events,
     jsdocTemplateHelper,
+    EVENT_NAMES,
+  );
+}
+
+if (options.parentTag) {
+  new features.TagsReplacement(
+    { parent: 'memberof' },
+    events,
     EVENT_NAMES,
   );
 }

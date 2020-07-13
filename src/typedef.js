@@ -15,6 +15,7 @@
  * @property {boolean} [extendTypes=true]
  * @property {boolean} [modulesOnMemberOf=true]
  * @property {boolean} [modulesTypesShortName=true]
+ * @property {boolean} [parentTag=true]
  * @property {boolean} [typeScriptUtilityTypes=true]
  * @property {?Object.<string,string>} [tagsReplacement=null]
  */

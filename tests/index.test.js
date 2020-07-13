@@ -54,6 +54,7 @@ describe('plugin', () => {
       extendTypes: true,
       modulesOnMemberOf: true,
       modulesTypesShortName: true,
+      parentTag: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: null,
     });
@@ -78,12 +79,17 @@ describe('plugin', () => {
       jsdocTemplateHelper,
       EVENT_NAMES,
     );
+    expect(features.TagsReplacement).toHaveBeenCalledTimes(1);
+    expect(features.TagsReplacement).toHaveBeenCalledWith(
+      { parent: 'memberof' },
+      events,
+      EVENT_NAMES,
+    );
     expect(features.TSUtilitiesTypes).toHaveBeenCalledTimes(1);
     expect(features.TSUtilitiesTypes).toHaveBeenCalledWith(
       events,
       EVENT_NAMES,
     );
-    expect(features.TagsReplacement).toHaveBeenCalledTimes(0);
   });
 
   it('should be loaded without the typedef imports feature', () => {
@@ -100,6 +106,7 @@ describe('plugin', () => {
       extendTypes: true,
       modulesOnMemberOf: true,
       modulesTypesShortName: true,
+      parentTag: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: null,
     });
@@ -120,6 +127,7 @@ describe('plugin', () => {
       extendTypes: false,
       modulesOnMemberOf: true,
       modulesTypesShortName: true,
+      parentTag: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: null,
     });
@@ -140,6 +148,7 @@ describe('plugin', () => {
       extendTypes: true,
       modulesOnMemberOf: false,
       modulesTypesShortName: true,
+      parentTag: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: null,
     });
@@ -160,10 +169,32 @@ describe('plugin', () => {
       extendTypes: true,
       modulesOnMemberOf: true,
       modulesTypesShortName: false,
+      parentTag: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: null,
     });
     expect(features.ModulesTypesShortName).toHaveBeenCalledTimes(0);
+  });
+
+  it('should be loaded without the parent tag feature', () => {
+    // Given
+    let sut = null;
+    let features = null;
+    // When
+    ({ plugin: sut, features } = loadPlugin({
+      parentTag: false,
+    }));
+    // Then
+    expect(sut.options).toEqual({
+      typedefImports: true,
+      extendTypes: true,
+      modulesOnMemberOf: true,
+      modulesTypesShortName: true,
+      parentTag: false,
+      typeScriptUtilityTypes: true,
+      tagsReplacement: null,
+    });
+    expect(features.TagsReplacement).toHaveBeenCalledTimes(0);
   });
 
   it('should be loaded without the TS utility types feature', () => {
@@ -180,6 +211,7 @@ describe('plugin', () => {
       extendTypes: true,
       modulesOnMemberOf: true,
       modulesTypesShortName: true,
+      parentTag: true,
       typeScriptUtilityTypes: false,
       tagsReplacement: null,
     });
@@ -189,7 +221,7 @@ describe('plugin', () => {
   it('should be loaded the tags replacement feature configured', () => {
     // Given
     const dictionary = {
-      parent: 'memeberof',
+      parent: 'memberofof',
     };
     let sut = null;
     let features = null;
@@ -208,11 +240,19 @@ describe('plugin', () => {
       extendTypes: true,
       modulesOnMemberOf: true,
       modulesTypesShortName: true,
+      parentTag: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: dictionary,
     });
-    expect(features.TagsReplacement).toHaveBeenCalledTimes(1);
-    expect(features.TagsReplacement).toHaveBeenCalledWith(
+    expect(features.TagsReplacement).toHaveBeenCalledTimes(2);
+    expect(features.TagsReplacement).toHaveBeenNthCalledWith(
+      1,
+      { parent: 'memberof' },
+      events,
+      EVENT_NAMES,
+    );
+    expect(features.TagsReplacement).toHaveBeenNthCalledWith(
+      2,
       dictionary,
       events,
       EVENT_NAMES,
