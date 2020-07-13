@@ -10,11 +10,11 @@ const features = require('./features');
  * @type {TSUtilsOptions}
  */
 const options = {
-  typedefImports: true,
-  extendTypes: true,
+  typedefImports: true, // done
+  extendTypes: true, // done
   modulesOnMemberOf: true,
-  modulesTypesShortName: true,
-  typeScriptUtilityTypes: true,
+  modulesTypesShortName: true, // done
+  typeScriptUtilityTypes: true, // done
   tagsReplacement: {},
   ...(jsdocEnv.conf.tsUtils || {}),
 };
@@ -35,15 +35,20 @@ if (options.modulesTypesShortName) {
   );
 }
 
+if (options.typeScriptUtilityTypes) {
+  new features.TSUtilitiesTypes(events, EVENT_NAMES);
+}
+
 module.exports.handlers = {
   parseBeing(event) {
     events.emit(EVENT_NAMES.parseBegin, event);
   },
   beforeParse(event) {
-    const { source } = event;
+    const { source, filename } = event;
     Utils.traverseComments(source, (comment) => events.emit(
       EVENT_NAMES.newComment,
       comment,
+      filename,
     ));
 
     // eslint-disable-next-line no-param-reassign
