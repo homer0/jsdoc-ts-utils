@@ -47,6 +47,14 @@ if (options.typeScriptUtilityTypes) {
   new features.TSUtilitiesTypes(events, EVENT_NAMES);
 }
 
+if (options.tagsReplacement && Object.keys(options.tagsReplacement).length) {
+  new features.TagsReplacement(
+    options.tagsReplacement,
+    events,
+    EVENT_NAMES,
+  );
+}
+
 module.exports.handlers = {
   parseBeing(event) {
     events.emit(EVENT_NAMES.parseBegin, event);
