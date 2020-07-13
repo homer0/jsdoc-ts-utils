@@ -1,17 +1,25 @@
 // @ts-check
-
 /**
  * @typedef {Object.<string,string>} TagsReplacementDictionary
  */
 
+/**
+ * This class allows the replacement of JSDoc tags. For example, it can be used to replace all
+ * `parent` tags with `memberof`.
+ */
 class TagsReplacement {
   /**
-   * @param {TagsReplacementDictionary} dictionary
-   * @param {EventEmitter} events
-   * @param {EVENT_NAMES} EVENT_NAMES
+   * @param {TagsReplacementDictionary} dictionary  The dictionary of tags that need to be
+   *                                                replaced.
+   * @param {EventEmitter}              events      To hook to the even triggered when the plugin
+   *                                                can do modifications to the code.
+   * @param {EVENT_NAMES}               EVENT_NAMES To get the name of the event the class needs to
+   *                                                listen for.
    */
   constructor(dictionary, events, EVENT_NAMES) {
     /**
+     * The dictionary of tags that are going to be replaced.
+     *
      * @type {TagsReplacementDictionary}
      * @access protected
      * @ignore
@@ -21,8 +29,12 @@ class TagsReplacement {
     events.on(EVENT_NAMES.commentsReady, this._replaceTags.bind(this));
   }
   /**
-   * @param {string} source
+   * This is called by the plugin in order replace the tags on a file.
+   *
+   * @param {string} source The code of the file being parsed.
    * @returns {string}
+   * @access protected
+   * @ignore
    */
   _replaceTags(source) {
     return Object.entries(this._dictionary).reduce(

@@ -6,6 +6,8 @@ const jsdocTemplateHelper = require('jsdoc/lib/jsdoc/util/templateHelper');
 const { EVENT_NAMES } = require('./constants');
 const features = require('./features');
 /**
+ * The plugin options.
+ *
  * @type {TSUtilsOptions}
  */
 const options = {
@@ -20,8 +22,10 @@ const options = {
 };
 
 /**
- * @param {string}  source
- * @param {CommentsTraverseFn}  fn
+ * Finds all the JSDoc comments on a source and _walks_ them by calling the traverse function.
+ *
+ * @param {string}             source The code to analyze.
+ * @param {CommentsTraverseFn} fn     The function that will be called for each comment.
  */
 const traverseComments = (source, fn) => {
   const regex = /\/\*\*\s*\n(?:[^\*]|\*[^\/])*\*\//g;
@@ -38,6 +42,7 @@ const traverseComments = (source, fn) => {
  */
 const events = new EventEmitter();
 
+// Load the features..
 if (options.typedefImports) {
   new features.TypedefImports(events, EVENT_NAMES);
 }
@@ -77,8 +82,17 @@ if (options.tagsReplacement && Object.keys(options.tagsReplacement).length) {
     EVENT_NAMES,
   );
 }
-
+/**
+ * Export all the loaded optiones.
+ *
+ * @type {TSUtilsOptions}
+ */
 module.exports.options = options;
+/**
+ * Export the handlers for JSDoc.
+ *
+ * @type {JSDocPluginHandlers}
+ */
 module.exports.handlers = {
   parseBegin(event) {
     events.emit(EVENT_NAMES.parseBegin, event);

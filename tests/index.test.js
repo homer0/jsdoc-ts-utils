@@ -1,3 +1,21 @@
+/**
+ * @typedef {import('../src')} Plugin
+ * @typedef {import('../src/features')} Features
+ */
+
+/**
+ * @typedef {Object} EventEmitterMock
+ * @property {Function} emit      Emits events to the listeners.
+ * @property {Function} listeners Gets the listeners for an event.
+ */
+
+/**
+ * @typedef {Object} LoadedPlugin
+ * @property {Plugin}           plugin   The loaded instance of the plugin.
+ * @property {Features}         features The dictionary of mocked features.
+ * @property {EventEmitterMock} events   The mock for the event emitter.
+ */
+
 jest.unmock('../src');
 jest.mock('events');
 jest.mock('jsdoc/lib/jsdoc/env', () => ({
@@ -9,6 +27,16 @@ const jsdocTemplateHelper = require('jsdoc/lib/jsdoc/util/templateHelper');
 const { EVENT_NAMES } = require('../src/constants');
 
 describe('plugin', () => {
+  /**
+   * Since the JSDoc options are parsed when the modules are loaded, in order for the tests to
+   * validate different configurations, this function will load new instances of the plugin,
+   * the JSDoc env module, the events module and the features.
+   *
+   * @param {?Partial<TSUtilsOptions>} options    The custom options for the plugin.
+   * @param {?EventEmitterMock}        eventsMock A custom mock for th event emitter instance.
+   *
+   * @returns {LoadedPlugin}
+   */
   const loadPlugin = (options = null, eventsMock = null) => {
     if (options) {
       // eslint-disable-next-line global-require
