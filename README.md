@@ -1,3 +1,248 @@
 # JSDoc TypeScript utils
 
 A plugin with utilities to make your TypeScript-like docs JSDoc valid
+
+## Introduction
+
+This plugin allows you to take advantage of the [TypeScript](https://www.typescriptlang.org) language server on modern IDEs/editors to generate [intelligent code completion](https://en.wikipedia.org/wiki/Intelligent_code_completion) using your [JSDoc](https://jsdoc.app) comments, and at the same time, be able to generate a documentation site with JSDoc CLI.
+
+The reason this plugin exists is that JSDoc comments as specified by its _convention_ are not 100% compatible with TypeScript, and they don't cover all the cases; sometimes, writing something that is JSDoc valid can end up killing the code completion, and other times, writing something for the code completion can cause invalid code for the JSDoc CLI.
+
+The plugin counts with a few (toggleable) features you can use to write code valid for TypeScript that will also be valid for the JSDoc CLI.
+
+There are also a few features that are designed to make the code compatible with the [ESLint plugin for JSDoc](https://yarnpkg.com/package/eslint-plugin-jsdoc), highly recommended if you are getting serious with JSDoc.
+
+## Configuration
+
+The first thing you need to do after installing the package, is to add it to the `plugins` array on your JSDoc configuration:
+
+```json
+{
+  ...
+  "plugins": [
+    "jsdoc-ts-utils",
+    ...
+  ]
+}
+```
+
+> It's important do add it first as it makes modifications to the code in order to make it valid. If a plugin that requires the code to be valid gets executed first, you may end up with unexpected errors.
+
+Since JSDoc doesn't allow to add configuration options on the `plugins` list, if you need to change the settings, you'll need to create a `tsUtils` object:
+
+```json
+{
+  ...
+  "plugins": [
+    "jsdoc-ts-utils",
+    ...
+  ],
+  "tsUtils": {
+    "typedefImports": true,
+    "extendTypes": true,
+    "modulesOnMemberOf": true,
+    "modulesTypesShortName": true,
+    "parentTag": true,
+    "typeScriptUtilityTypes": true,
+    "tagsReplacement": {}
+  }
+}
+```
+
+| Option | Default | Description |
+| ------ | ------- | ----------- |
+| `typedefImports` | `true` | Whether or not to enable the feature that removes `typedef` statements that use `import`. |
+| `extendTypes` | `true` | Whether or not to enable the feature that allows intersections to be reformatted. |
+| `modulesOnMemberOf` | `true` | Whether or not to enable the feature that fixes modules' paths on `memeberof` so they can use dot notation. |
+| `modulesTypesShortName` | `true` | Whether or not to register modules types without the module path too. |
+| `parentTag` | `true` | Whether or not to transform all `parent` tags into `memberof`. |
+| `typeScriptUtilityTypes` | `true` | Whether or not to add the external utility types from TypeScript. |
+| `tagsReplacement` | `null` | A dictionary of tags to replace, they keys are the tags being used and the values the tag that should be used. |
+
+## Features
+
+### Import type defintions
+
+```js
+/**
+ * @typedef {import('./daughters').Rosario} Rosario
+ */
+```
+
+This syntax can be used to import a type from another file without having to import a variable that you won't be using. It not only allows you to import the type of an existing object, but also a type defined with `@typedef`.
+
+The feature will detect the block and replace it with empty lines (so it doesn't mess up the lines of other definitions on the generated site).
+
+In case you want to import the type but show it as an external on the site, because it's the type of an installed library and you want to reference it or something, you could use the following syntax:
+
+```js
+/**
+ * @typedef {import('family/daughters').Pilar} Pilar
+ * @external Pilar
+ * @see https://yarnpkg.com/package/family
+ */
+```
+
+The feature will only replace the line for the `@typedef` and leave the rest.
+
+This is enabled by default but you can disable it with the `typedefImports` option.
+
+### Extending existing types
+
+```js
+/**
+ * @typedef {Object} Entity
+ * @property {string} shape ...
+ * @property {string} name  ...
+ */
+
+/**
+ * @typedef {Entity & PersonProperties} Person
+ */
+
+/**
+ * @typedef {Object} PersonProperties
+ * @property {number} age    ...
+ * @property {number} height ...
+ * @augments Person
+ */
+```
+
+You can extend an existing type by defining a new one with the new attributes/properties and another one that intersect it with the original.
+
+The feature will find the one with the intersection, look if there's a type that `aguments`/`extends` it, remove the intersection, move the attributes/properties to its own definition and remove the extra definition:
+
+```js
+/**
+ * @typedef {Object} Entity
+ * @property {string} shape ...
+ * @property {string} name  ...
+ */
+
+/**
+ * @typedef {Entity} Person
+ * @property {number} age    ...
+ * @property {number} height ...
+ */
+```
+
+If the feature can't find a type the `aguments`/`extends` the intersection, it will simply transform it into a union.
+
+> **Note:** You should always define the attributes/properties type after the intersection type, so when the feature removes it, it won't mess up the lines of other definitions on the generated site.
+
+This is enabled by default but you can disable it with the `extendTypes` option.
+
+### Modules' paths on @memberof
+
+```js
+/**
+ * @typedef {Object} Entity
+ * @property {string} shape ...
+ * @property {string} name  ...
+ * @memberof module.services.utils
+ */
+```
+
+This is meant to solve issues with the ESLint plugin: If the plugin is configured for TypeScript, you can't use the `module:` prefix on `@memberof`, as the parser doesn't support it.
+
+Adding modules to definitions is something really useful to group parts of your project on the generated site, so this feature allows you to use dot notation: `module.[path]` instead of `module:[path]` and it will automatically transform it before the JSDoc CLI reads it.
+
+This is enabled by default but you can disable it with the `modulesOnMemberOf` option.
+
+### Modules' types short names
+
+```js
+/**
+ * @typedef {Object} Entity
+ * @property {string} shape ...
+ * @property {string} name  ...
+ * @memberof module.services.utils
+ */
+
+/**
+ * @param {Entity} entity
+ * ...
+ */ 
+```
+
+When you add `@memberof` to a type definition, you cannot longer reference the type by its name alone, you have to use the `module:[path].[type]` format for the JSDoc CLI to properly link it... not great.
+
+This features intercepts the creation of the links for types on the generated site and if the type has the `module:` prefix, it will also register it without the prefix as an alias.
+
+Something similar happens with externals; when you want to reference an external, you need to use `externa:[type]`... yes, the feature takes care of that too.
+
+This is enabled by default but you can disable it with the `modulesTypesShortName` option.
+
+### @parent tag
+
+```js
+/**
+ * @typedef {Object} Entity
+ * @property {string} shape ...
+ * @property {string} name  ...
+ * @parent module:services/utils
+ */
+```
+
+If you use special characters on your modules names, like `/`, then `modulesOnMemberOf` won't be enough to help you: the parser the ESLint plugin uses for TypeScript only allows dot notation.
+
+This feature is simply an alias for `@memberof`: you put whatever you want in the `@parent` tag, and before generating the site, it will be converted to `@memberof`.
+
+> If you are taking advantage of this feature and using the ESLint plugin, you should add `parent` to the `definedTags` option of the `jsdoc/check-tag-names` rule.
+
+This is enabled by default but you can disable it with the `parentTag` option.
+
+### TypeScript utility types
+
+```js
+/**
+ * @typedef {Object} Entity
+ * @property {string} shape ...
+ * @property {string} name  ...
+ */
+ 
+/**
+ * @param {Partial<Entity>} entity
+ * ...
+ */
+```
+
+TypeScript already comes with a set of [utility types](https://www.typescriptlang.org/docs/handbook/utility-types.html) that you can use on your code and that the code completion will understand.
+
+This feature basically takes those types and define them as `@external`s, so they can have links on the generated site.
+
+This is enabled by default but you can disable it with the `typeScriptUtilityTypes` option.
+
+### Tags replacement
+
+```js
+/**
+ * @parametro {string} name
+ * @parametro {number} age
+ * @retorno {Entity}
+ */
+```
+
+This feature doesn't have a specific use case, it was built for the `@parent` tag and I decided to expose as maybe someone would have the need for it.
+
+The feature allows you to replace tags before generating the site. You define a "replacement dictionary" on the plugin configuration:
+
+```json
+{
+  ...
+  "plugins": [
+    "jsdoc-ts-utils",
+    ...
+  ],
+  "tsUtils": {
+    "tagsReplacement": {
+      "parametro": "param",
+      "retorno": "returns"
+    }
+  }
+}
+```
+
+And before generating the site, the feature will replace the tags from the keys with the ones from the values.
+
+No modification to the `tagsReplacement` option will affect the `@parent` tag feature, they use different instances.
