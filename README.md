@@ -21,12 +21,12 @@ There are also a few features that are designed to make the code compatible with
 
 The first thing you need to do after installing the package, is to add it to the `plugins` array on your JSDoc configuration:
 
-```json
+```js
 {
-  ...
+  // ...
   "plugins": [
     "jsdoc-ts-utils",
-    ...
+    // ...
   ]
 }
 ```
@@ -35,12 +35,12 @@ The first thing you need to do after installing the package, is to add it to the
 
 Since JSDoc doesn't allow to add configuration options on the `plugins` list, if you need to change the settings, you'll need to create a `tsUtils` object:
 
-```json
+```js
 {
-  ...
+  // ...
   "plugins": [
     "jsdoc-ts-utils",
-    ...
+    // ...
   ],
   "tsUtils": {
     "typedefImports": true,
@@ -232,12 +232,12 @@ This feature doesn't have a specific use case, it was built for the `@parent` ta
 
 The feature allows you to replace tags before generating the site. You define a "replacement dictionary" on the plugin configuration:
 
-```json
+```js
 {
-  ...
+  // ...
   "plugins": [
     "jsdoc-ts-utils",
-    ...
+    // ...
   ],
   "tsUtils": {
     "tagsReplacement": {
