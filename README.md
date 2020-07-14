@@ -1,5 +1,10 @@
 # JSDoc TypeScript utils
 
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/homer0/jsdoc-ts-utils/Test/master?style=flat-square)](https://github.com/homer0/jsdoc-ts-utils/actions?query=workflow%3ATest)
+[![Coveralls GitHub](https://img.shields.io/coveralls/github/homer0/jsdoc-ts-utils.svg?style=flat-square)](https://coveralls.io/github/homer0/jsdoc-ts-utils?branch=master)
+[![David](https://img.shields.io/david/homer0/jsdoc-ts-utils.svg?style=flat-square)](https://david-dm.org/homer0/jsdoc-ts-utils)
+[![David](https://img.shields.io/david/dev/homer0/jsdoc-ts-utils.svg?style=flat-square)](https://david-dm.org/homer0/jsdoc-ts-utils)
+
 A plugin with utilities to make your TypeScript-like docs JSDoc valid
 
 ## Introduction
@@ -16,12 +21,12 @@ There are also a few features that are designed to make the code compatible with
 
 The first thing you need to do after installing the package, is to add it to the `plugins` array on your JSDoc configuration:
 
-```json
+```js
 {
-  ...
+  // ...
   "plugins": [
     "jsdoc-ts-utils",
-    ...
+    // ...
   ]
 }
 ```
@@ -30,12 +35,12 @@ The first thing you need to do after installing the package, is to add it to the
 
 Since JSDoc doesn't allow to add configuration options on the `plugins` list, if you need to change the settings, you'll need to create a `tsUtils` object:
 
-```json
+```js
 {
-  ...
+  // ...
   "plugins": [
     "jsdoc-ts-utils",
-    ...
+    // ...
   ],
   "tsUtils": {
     "typedefImports": true,
@@ -162,7 +167,7 @@ This is enabled by default but you can disable it with the `modulesOnMemberOf` o
 /**
  * @param {Entity} entity
  * ...
- */ 
+ */
 ```
 
 When you add `@memberof` to a type definition, you cannot longer reference the type by its name alone, you have to use the `module:[path].[type]` format for the JSDoc CLI to properly link it... not great.
@@ -200,7 +205,7 @@ This is enabled by default but you can disable it with the `parentTag` option.
  * @property {string} shape ...
  * @property {string} name  ...
  */
- 
+
 /**
  * @param {Partial<Entity>} entity
  * ...
@@ -227,12 +232,12 @@ This feature doesn't have a specific use case, it was built for the `@parent` ta
 
 The feature allows you to replace tags before generating the site. You define a "replacement dictionary" on the plugin configuration:
 
-```json
+```js
 {
-  ...
+  // ...
   "plugins": [
     "jsdoc-ts-utils",
-    ...
+    // ...
   ],
   "tsUtils": {
     "tagsReplacement": {
@@ -261,15 +266,21 @@ No modification to the `tagsReplacement` option will affect the `@parent` tag fe
 
 ### Repository hooks
 
-I use [husky](https://yarnpkg.com/package/husky) to automatically install the repository hooks so the code will be tested and linted before any commit and the dependencies updated after every merge.
+I use [`husky`](https://yarnpkg.com/package/husky) to automatically install the repository hooks so the code will be tested and linted before any commit and the dependencies updated after every merge.
 
 The configuration is on the `husky` property of the `package.json` and the hooks' files are on `./utils/hooks`.
 
 #### Commits convention
 
-I use [conventional commits](https://www.conventionalcommits.org) with [commitizen](https://yarnpkg.com/package/commitizen) in order to support semantic releases. The one that sets it up is actually husky, that installs a script that runs commitizen on the `git commit` command.
+I use [conventional commits](https://www.conventionalcommits.org) with [`commitizen`](https://yarnpkg.com/package/commitizen) in order to support semantic releases. The one that sets it up is actually husky, that installs a script that runs commitizen on the `git commit` command.
 
 The hook for this is on `./utils/hooks/prepare-commit-msg` and the configuration for comitizen is on the `config.commitizen` property of the `package.json`.
+
+### Releases
+
+I use [`semantic-release`](https://yarnpkg.com/package/semantic-release) and a GitHub action to automatically release on NPM everything that gets merged to master.
+
+The configuration for `semantic-release` is on `./releaserc` and the workflow for the release is on `./.github/workflow/release.yml`.
 
 ### Testing
 
