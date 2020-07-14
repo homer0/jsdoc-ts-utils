@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8" />
+    <title>features/tsUtilityTypes.js - jsdoc-ts-utils docs</title>
+    
+    
+    
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css" />
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css" />
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no" />
+    <link rel="shortcut icon" href="icons/favicon-48.png" />
+    <link rel="apple-touch-icon" sizes="48x48" href="icons/favicon-48.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="icons/favicon-72.png" />
+    <link rel="apple-touch-icon" sizes="96x96" href="icons/favicon-96.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="icons/favicon-144.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="icons/favicon-192.png" />
+    <link rel="apple-touch-icon" sizes="256x256" href="icons/favicon-256.png" />
+    <link rel="apple-touch-icon" sizes="384x384" href="icons/favicon-384.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="icons/favicon-512.png" />
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html" class="home-link">jsdoc-ts-utils</a></h2><h2><a href="https://github.com/homer0/jsdoc-ts-utils" target="_blank" >GitHub</a></h2><h3>Classes</h3><ul><li><a href="ExtendTypes.html">ExtendTypes</a></li><li><a href="ModulesOnMemberOf.html">ModulesOnMemberOf</a></li><li><a href="ModulesTypesShortName.html">ModulesTypesShortName</a></li><li><a href="TagsReplacement.html">TagsReplacement</a></li><li><a href="TSUtilitiesTypes.html">TSUtilitiesTypes</a><ul class='methods'><li data-type='method' style='display: none;'><a href="TSUtilitiesTypes.html#_findTypedefFile">_findTypedefFile</a></li></ul></li><li><a href="TypedefImports.html">TypedefImports</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">features/tsUtilityTypes.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// @ts-check
+const path = require('path');
+
+/**
+ * This class adds extra type definitions for TypeScript utility types. If the project includes
+ * a `typedef` file, the definitions will be added at the end of the file; otherwise, they'll be
+ * added to the first file being parsed.
+ */
+class TSUtilitiesTypes {
+  /**
+   * @param {EventEmitter} events      To hook to the necessary events to add the definitions.
+   * @param {EVENT_NAMES}  EVENT_NAMES To get the name of the events the class needs to listen for.
+   */
+  constructor(events, EVENT_NAMES) {
+    /**
+     * If a `typedef` file is found, this property will have its path.
+     *
+     * @type {?string}
+     * @access protected
+     * @ignore
+     */
+    this._typedefFile = null;
+    /**
+     * A control flag used when parsing the files in order to know if the defintions were already
+     * added or not.
+     *
+     * @type {boolean}
+     * @access protected
+     * @ignore
+     */
+    this._added = false;
+    /**
+     * The base URL of where the types are documented.
+     *
+     * @type {string}
+     * @access protected
+     * @ignore
+     */
+    this._typesUrl = 'https://www.typescriptlang.org/docs/handbook/utility-types.html';
+    /**
+     * The dictionary of the utility types. The keys are the names of the types and the values
+     * their anchor section on the documentation page.
+     *
+     * @type {Object.&lt;string,string>}
+     * @access protected
+     * @ignore
+     */
+    this._types = {
+      Partial: 'partialt',
+      Readonly: 'readonlyt',
+      Record: 'recordkt',
+      Pick: 'picktk',
+      Omit: 'omittk',
+      Exclude: 'excludetu',
+      Extract: 'extracttu',
+      NonNullable: 'nonnullablet',
+      Parameters: 'parameterst',
+      ConstructorParameters: 'constructorparameterst',
+      ReturnType: 'returntypet',
+      InstanceType: 'instancetypet',
+      Required: 'requiredt',
+      ThisParameterType: 'thisparametertype',
+      OmitThisParameter: 'omitthisparameter',
+      ThisType: 'thistypet',
+    };
+    // Setup the listeners.
+    events.on(EVENT_NAMES.parseBegin, this._findTypedefFile.bind(this));
+    events.on(EVENT_NAMES.commentsReady, this._addTypes.bind(this));
+  }
+  /**
+   * This is called by the plugin in order to add the types.
+   *
+   * @param {string} source   The code of the file being parsed.
+   * @param {string} filename The path of the file being parsed. This is used in case a `typedef`
+   *                          file exists on the project, to validate if the comments should be
+   *                          added on that file.
+   * @returns {string}
+   * @access protected
+   * @ignore
+   */
+  _addTypes(source, filename) {
+    let result;
+    if (
+      this._added ||
+      (this._typedefFile &amp;&amp; filename !== this._typedefFile)
+    ) {
+      result = source;
+    } else {
+      const comments = this._getComments();
+      result = `${source}\n\n${comments}`;
+      this._added = true;
+    }
+
+    return result;
+  }
+  /**
+   * This is called by the plugin before the parsing beings, so the class can identify if the
+   * project includes a `typedef` file.
+   *
+   * @param {JSDocParseBeginEventPayload} event The event information, with the list of files that
+   *                                            going to be parsed.
+   *
+   */
+  _findTypedefFile(event) {
+    const typedef = event.sourcefiles.find((file) => (
+      path
+      .basename(file)
+      .match(/^typedef\.[jt]sx?$/)
+    ));
+
+    this._typedefFile = typedef || null;
+    this._added = false;
+  }
+  /**
+   * Generates the `typedef` blocks for the TypeScript utility types.
+   *
+   * @returns {string}
+   * @access protected
+   * @ignore
+   */
+  _getComments() {
+    return Object.entries(this._types)
+    .map(([name, anchor]) => [
+      '/**',
+      ` * @external ${name}`,
+      ` * @see ${this._typesUrl}#${anchor}`,
+      ' */\n',
+    ])
+    .reduce((acc, lines) => [...acc, ...lines], [])
+    .join('\n');
+  }
+}
+
+module.exports.TSUtilitiesTypes = TSUtilitiesTypes;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a> using a forked <a href="https://github.com/homer0/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>

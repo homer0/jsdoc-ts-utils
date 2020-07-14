@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8" />
+    <title>TagsReplacement - jsdoc-ts-utils docs</title>
+    
+    
+    
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css" />
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css" />
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no" />
+    <link rel="shortcut icon" href="icons/favicon-48.png" />
+    <link rel="apple-touch-icon" sizes="48x48" href="icons/favicon-48.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="icons/favicon-72.png" />
+    <link rel="apple-touch-icon" sizes="96x96" href="icons/favicon-96.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="icons/favicon-144.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="icons/favicon-192.png" />
+    <link rel="apple-touch-icon" sizes="256x256" href="icons/favicon-256.png" />
+    <link rel="apple-touch-icon" sizes="384x384" href="icons/favicon-384.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="icons/favicon-512.png" />
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html" class="home-link">jsdoc-ts-utils</a></h2><h2><a href="https://github.com/homer0/jsdoc-ts-utils" target="_blank" >GitHub</a></h2><h3>Classes</h3><ul><li><a href="ExtendTypes.html">ExtendTypes</a></li><li><a href="ModulesOnMemberOf.html">ModulesOnMemberOf</a></li><li><a href="ModulesTypesShortName.html">ModulesTypesShortName</a></li><li><a href="TagsReplacement.html">TagsReplacement</a></li><li><a href="TSUtilitiesTypes.html">TSUtilitiesTypes</a><ul class='methods'><li data-type='method' style='display: none;'><a href="TSUtilitiesTypes.html#_findTypedefFile">_findTypedefFile</a></li></ul></li><li><a href="TypedefImports.html">TypedefImports</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">TagsReplacement</h1>
+    
+
+    
+
+
+
+
+<section>
+
+<header>
+    
+        <h2>
+        TagsReplacement
+        </h2>
+        
+            <div class="class-description usertext"><p>This class allows the replacement of JSDoc tags. For example, it can be used to replace all
+<code>parent</code> tags with <code>memberof</code>.</p></div>
+        
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+    
+    <h2>Constructor</h2>
+    
+
+    <h4 class="name" id="TagsReplacement"><span class="type-signature"></span>new TagsReplacement<span class="signature">(dictionary, events, EVENT_NAMES)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="features_tagsReplacement.js.html">features/tagsReplacement.js</a>, <a href="features_tagsReplacement.js.html#line19">line 19</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>dictionary</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#TagsReplacementDictionary">TagsReplacementDictionary</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>The dictionary of tags that need to be
+replaced.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>events</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a  target="_blank" href="https://nodejs.org/api/events.html">EventEmitter</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>To hook to the even triggered when the plugin
+can do modifications to the code.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>EVENT_NAMES</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#EVENT_NAMES">EVENT_NAMES</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>To get the name of the event the class needs to
+listen for.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a> using a forked <a href="https://github.com/homer0/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+<script src="scripts/collapse.js" defer></script>
+
+
+</body>
+</html>
