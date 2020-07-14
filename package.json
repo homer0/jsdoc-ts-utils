@@ -38,7 +38,7 @@
   "scripts": {
     "docs": "./utils/scripts/docs",
     "lint": "./utils/scripts/lint",
-    "lint:full": "./utils/scripts/lint-full",
+    "lint:all": "./utils/scripts/lint-all",
     "test": "./utils/scripts/test",
     "todo": "./utils/scripts/todo"
   },
