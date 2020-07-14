@@ -10,19 +10,14 @@
  * @see https://github.com/jsdoc/jsdoc/blob/3.5.5/lib/jsdoc/util/templateHelper.js
  */
 
-/* eslint-disable jsdoc/valid-types */
+/* eslint-disable jsdoc/valid-types, max-len */
 /**
- * @typedef {JSDocTemplateHelper['registerLink']} JSDocTemplateHelperRegisterLink
+ * @typedef {import('jsdoc/lib/jsdoc/util/templateHelper')['registerLink']} JSDocTemplateHelperRegisterLink
  */
 /* eslint-enable jsdoc/valid-types */
 
 /**
  * @typedef {import('./constants').EVENT_NAMES} EVENT_NAMES
- */
-
-/**
- * @callback CommentsTraverseFn
- * @param {string} comment
  */
 
 /**
@@ -48,26 +43,31 @@
 /**
  * @typedef {Object} JSDocParseBeginEventPayload
  * @property {string[]} sourcefiles The list of files JSDoc will parse.
+ * @ignore
  */
 
 /**
  * @callback JSDocParseBeginHandler
  * @param {JSDocParseBeginEventPayload} event The JSDoc event information.
+ * @ignore
  */
 
 /**
  * @typedef {Object} JSDocBeforeParseEventPayload
  * @property {string} source   The source code of the file that is going to be parsed.
  * @property {string} filename The absolute path to the file that is going to be parsed.
+ * @ignore
  */
 
 /**
  * @callback JSDocBeforeParseHandler
  * @param {JSDocBeforeParseEventPayload} event The JSDoc event information.
+ * @ignore
  */
 
 /**
  * @typedef {Object} JSDocPluginHandlers
  * @property {JSDocParseBeginHandler}  parseBegin  Called before parsing the files.
  * @property {JSDocBeforeParseHandler} beforeParse Called before parsing a single file.
+ * @ignore
  */

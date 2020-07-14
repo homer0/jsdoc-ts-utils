@@ -1,5 +1,4 @@
 // @ts-check
-
 /**
  * @typedef {Object} EVENT_NAMES
  * @property {string} parseBegin    The event triggered before the files are parsed.
@@ -13,6 +12,7 @@
  * A dictionary with the different events the plugin uses.
  *
  * @type {EVENT_NAMES}
+ * @ignore
  */
 const EVENT_NAMES = {
   parseBegin: 'jsdoc:parse-begin',

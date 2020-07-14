@@ -5,10 +5,35 @@ const jsdocEnv = require('jsdoc/lib/jsdoc/env');
 const jsdocTemplateHelper = require('jsdoc/lib/jsdoc/util/templateHelper');
 const { EVENT_NAMES } = require('./constants');
 const features = require('./features');
+
+/**
+ * @callback CommentsTraverseFn
+ * @param {string} comment
+ * @ignore
+ */
+
+/**
+ * Finds all the JSDoc comments on a source and _walks_ them by calling the traverse function.
+ *
+ * @param {string}             source The code to analyze.
+ * @param {CommentsTraverseFn} fn     The function that will be called for each comment.
+ * @ignore
+ */
+const traverseComments = (source, fn) => {
+  const regex = /\/\*\*\s*\n(?:[^\*]|\*[^\/])*\*\//g;
+  let match = regex.exec(source);
+  while (match) {
+    const [comment] = match;
+    fn(comment);
+    match = regex.exec(source);
+  }
+};
+
 /**
  * The plugin options.
  *
  * @type {TSUtilsOptions}
+ * @ignore
  */
 const options = {
   typedefImports: true,
@@ -22,23 +47,8 @@ const options = {
 };
 
 /**
- * Finds all the JSDoc comments on a source and _walks_ them by calling the traverse function.
- *
- * @param {string}             source The code to analyze.
- * @param {CommentsTraverseFn} fn     The function that will be called for each comment.
- */
-const traverseComments = (source, fn) => {
-  const regex = /\/\*\*\s*\n(?:[^\*]|\*[^\/])*\*\//g;
-  let match = regex.exec(source);
-  while (match) {
-    const [comment] = match;
-    fn(comment);
-    match = regex.exec(source);
-  }
-};
-
-/**
  * @type {EventEmitter}
+ * @ignore
  */
 const events = new EventEmitter();
 
@@ -86,12 +96,14 @@ if (options.tagsReplacement && Object.keys(options.tagsReplacement).length) {
  * Export all the loaded optiones.
  *
  * @type {TSUtilsOptions}
+ * @ignore
  */
 module.exports.options = options;
 /**
  * Export the handlers for JSDoc.
  *
  * @type {JSDocPluginHandlers}
+ * @ignore
  */
 module.exports.handlers = {
   parseBegin(event) {

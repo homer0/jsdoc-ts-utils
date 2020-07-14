@@ -12,6 +12,7 @@
  *                                 already has one line, it's not added, but the class needs to
  *                                 know how many lines it needs to use to replace the comment when
  *                                 removed.
+ * @ignore
  */
 
 /**
