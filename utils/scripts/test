@@ -1,2 +1,0 @@
-#!/bin/bash -e
-yarn jest -c ./.jestrc.js $@
