@@ -1,5 +1,10 @@
 # JSDoc TypeScript utils
 
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/homer0/jsdoc-ts-utils/Test/master?style=flat-square)](https://github.com/homer0/jsdoc-ts-utils/actions?query=workflow%3ATest)
+[![Coveralls GitHub](https://img.shields.io/coveralls/github/homer0/jsdoc-ts-utils.svg?style=flat-square)](https://coveralls.io/github/homer0/jsdoc-ts-utils?branch=master)
+[![David](https://img.shields.io/david/homer0/jsdoc-ts-utils.svg?style=flat-square)](https://david-dm.org/homer0/jsdoc-ts-utils)
+[![David](https://img.shields.io/david/dev/homer0/jsdoc-ts-utils.svg?style=flat-square)](https://david-dm.org/homer0/jsdoc-ts-utils)
+
 A plugin with utilities to make your TypeScript-like docs JSDoc valid
 
 ## Introduction
@@ -162,7 +167,7 @@ This is enabled by default but you can disable it with the `modulesOnMemberOf` o
 /**
  * @param {Entity} entity
  * ...
- */ 
+ */
 ```
 
 When you add `@memberof` to a type definition, you cannot longer reference the type by its name alone, you have to use the `module:[path].[type]` format for the JSDoc CLI to properly link it... not great.
@@ -200,7 +205,7 @@ This is enabled by default but you can disable it with the `parentTag` option.
  * @property {string} shape ...
  * @property {string} name  ...
  */
- 
+
 /**
  * @param {Partial<Entity>} entity
  * ...
