@@ -12,6 +12,7 @@
   "devDependencies": {
     "commitizen": "^4.1.2",
     "cz-conventional-changelog": "3.2.0",
+    "docdash": "homer0/docdash#semver:^2.0.0",
     "eslint": "^7.4.0",
     "eslint-plugin-homer0": "^5.0.0",
     "husky": "^4.2.5",
@@ -35,6 +36,7 @@
   },
   "main": "src/index.js",
   "scripts": {
+    "docs": "./utils/scripts/docs",
     "lint": "./utils/scripts/lint",
     "lint:full": "./utils/scripts/lint-full",
     "test": "./utils/scripts/test",
