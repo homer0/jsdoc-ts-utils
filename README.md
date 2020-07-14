@@ -246,3 +246,51 @@ The feature allows you to replace tags before generating the site. You define a 
 And before generating the site, the feature will replace the tags from the keys with the ones from the values.
 
 No modification to the `tagsReplacement` option will affect the `@parent` tag feature, they use different instances.
+
+## Development
+
+### NPM/Yarn tasks
+
+| Task       | Description                          |
+|------------|--------------------------------------|
+| `docs`     | Generates the project documentation. |
+| `lint`     | Lints the staged files.              |
+| `lint:all` | Lints the entire project code.       |
+| `test`     | Runs the project unit tests.         |
+| `todo`     | Lists all the pending to-do's.       |
+
+### Repository hooks
+
+I use [husky](https://yarnpkg.com/package/husky) to automatically install the repository hooks so the code will be tested and linted before any commit and the dependencies updated after every merge.
+
+The configuration is on the `husky` property of the `package.json` and the hooks' files are on `./utils/hooks`.
+
+#### Commits convention
+
+I use [conventional commits](https://www.conventionalcommits.org) with [commitizen](https://yarnpkg.com/package/commitizen) in order to support semantic releases. The one that sets it up is actually husky, that installs a script that runs commitizen on the `git commit` command.
+
+The hook for this is on `./utils/hooks/prepare-commit-msg` and the configuration for comitizen is on the `config.commitizen` property of the `package.json`.
+
+### Testing
+
+I use [Jest](https://facebook.github.io/jest/) to test the project.
+
+The configuration file is on `./.jestrc.json`, the tests are on `./tests` and the script that runs it is on `./utils/scripts/test`.
+
+### Linting
+
+I use [ESlint](https://eslint.org) with [my own custom configuration](https://yarnpkg.com/package/eslint-plugin-homer0) to validate all the JS code and the JSDoc comments.
+
+The configuration file for the project code is on `./.eslintrc` and the one for the tests is on `./tests/.eslintrc`, and there's also an `./.eslintignore` to exclude some files on the process. The script that runs it is on `./utils/scripts/lint`.
+
+### Documentation
+
+I use [JSDoc](https://jsdoc.app) to generate an HTML documentation site for the project.
+
+The configuration file is on `./.jsdoc.js` and the script that runs it is on `./utils/scripts/docs`.
+
+### To-Dos
+
+I use `@todo` comments to write all the pending improvements and fixes, and [Leasot](https://yarnpkg.com/package/leasot) to generate a report.
+
+The script that runs it is on `./utils/scripts/todo`.
