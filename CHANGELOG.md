@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/homer0/jsdoc-ts-utils/compare/1.0.0...1.0.1) (2020-08-11)
+
+
+### Bug Fixes
+
+* update dependencies ([f2d2152](https://github.com/homer0/jsdoc-ts-utils/commit/f2d2152ff4a5b7f5b77c732ceef93e3c31c3fcad))
+
 # 1.0.0 (2020-07-14)
 
 
