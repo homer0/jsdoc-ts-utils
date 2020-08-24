@@ -1,3 +1,15 @@
+# [1.1.0](https://github.com/homer0/jsdoc-ts-utils/compare/1.0.1...1.1.0) (2020-08-24)
+
+
+### Bug Fixes
+
+* update dependencies ([2eebbf9](https://github.com/homer0/jsdoc-ts-utils/commit/2eebbf9d5bb90e70de05d338edfeb2ce46c183e0))
+
+
+### Features
+
+* replace `typeof T` with `Class.<T>` ([9a5024e](https://github.com/homer0/jsdoc-ts-utils/commit/9a5024e128b918014c107f6ce0f48f9dacafae7f))
+
 ## [1.0.1](https://github.com/homer0/jsdoc-ts-utils/compare/1.0.0...1.0.1) (2020-08-11)
 
 
