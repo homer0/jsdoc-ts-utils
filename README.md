@@ -114,6 +114,8 @@ The `typeof Class` inside a type is not valid JSDoc, so this feature will transf
  */
 ```
 
+This is enabled by default but you can disable it with the `typeOfTypes` option.
+
 ### Extending existing types
 
 ```js
