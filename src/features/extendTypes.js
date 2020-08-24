@@ -79,7 +79,7 @@ class ExtendTypes {
    * @ignore
    */
   _getCommentWithPropertiesInfo(comment) {
-    const [, name] = /@typedef\s+\{[^\}]+\}\s*(.*?)\s/i.exec(comment);
+    const [, name] = /@typedef\s+\{[^\}]+\}[\s\*]*(.*?)\s/i.exec(comment);
     const [, augments] = /@(?:augments|extends)\s+(.*?)\s/i.exec(comment);
     const allLines = comment.split('\n');
     const linesCount = allLines.length;
@@ -164,7 +164,11 @@ class ExtendTypes {
     return this._commentsWithIntersections.reduce(
       (acc, comment) => {
         // Extract the `typedef` types and name.
-        const [typedefLine, rawTypes, name] = /@typedef\s*\{([^\}]+)\}\s*(.*?)\s/i.exec(comment);
+        const [
+          typedefLine,
+          rawTypes,
+          name,
+        ] = /@typedef\s*\{([^\}]+)\}[\s\*]*(.*?)\s/i.exec(comment);
         // Transform the types into an array.
         const types = rawTypes
         .split('&')
