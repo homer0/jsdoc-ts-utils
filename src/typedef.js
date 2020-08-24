@@ -22,22 +22,24 @@
 
 /**
  * @typedef {Object} TSUtilsOptions
- * @property {boolean} [typedefImports=true]
+ * @property {boolean} typedefImports
  * Whether or not to enable the feature that removes `typedef` statements that use `import`.
- * @property {boolean} [extendTypes=true]
+ * Default `true`.
+ * @property {boolean} extendTypes
  * Whether or not to enable the feature that allows intersections to be reformatted.
- * @property {boolean} [modulesOnMemberOf=true]
+ * Default `true`.
+ * @property {boolean} modulesOnMemberOf
  * Whether or not to enable the feature that fixes modules' paths on `memeberof` so they can
- * use dot notation.
- * @property {boolean} [modulesTypesShortName=true]
- * Whether or not to register modules types without the module path too.
- * @property {boolean} [parentTag=true]
- * Whether or not to transform all `parent` tags into `memberof`.
- * @property {boolean} [typeScriptUtilityTypes=true]
- * Whether or not to add the external utility types from TypeScript.
- * @property {?Object.<string,string>} [tagsReplacement=null]
+ * use dot notation. Default `true`.
+ * @property {boolean} modulesTypesShortName
+ * Whether or not to register modules types without the module path too. Default `true`.
+ * @property {boolean} parentTag
+ * Whether or not to transform all `parent` tags into `memberof`. Default `true`.
+ * @property {boolean} typeScriptUtilityTypes
+ * Whether or not to add the external utility types from TypeScript. Default `true`.
+ * @property {?Object.<string,string>} tagsReplacement
  * A dictionary of tags to replace, they keys are the tags being used and the values the tag that
- * should be used.
+ * should be used. Default `null`.
  */
 
 /**

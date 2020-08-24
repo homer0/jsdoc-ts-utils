@@ -44,6 +44,7 @@ Since JSDoc doesn't allow to add configuration options on the `plugins` list, if
   ],
   "tsUtils": {
     "typedefImports": true,
+    "typeOfTypes": true,
     "extendTypes": true,
     "modulesOnMemberOf": true,
     "modulesTypesShortName": true,
@@ -57,6 +58,7 @@ Since JSDoc doesn't allow to add configuration options on the `plugins` list, if
 | Option | Default | Description |
 | ------ | ------- | ----------- |
 | `typedefImports` | `true` | Whether or not to enable the feature that removes `typedef` statements that use `import`. |
+| `typeOfTypes` | `true` | Whether or not to enable the feature that replaces `{typeof T}` with `{Class.<T>}`. |
 | `extendTypes` | `true` | Whether or not to enable the feature that allows intersections to be reformatted. |
 | `modulesOnMemberOf` | `true` | Whether or not to enable the feature that fixes modules' paths on `memeberof` so they can use dot notation. |
 | `modulesTypesShortName` | `true` | Whether or not to register modules types without the module path too. |
@@ -91,6 +93,28 @@ In case you want to import the type but show it as an external on the site, beca
 The feature will only replace the line for the `@typedef` and leave the rest.
 
 This is enabled by default but you can disable it with the `typedefImports` option.
+
+### Use `typeof` as a type
+
+```js
+/**
+ * @typedef {typeof Rosario} ClassRosario
+ */
+```
+
+One of the most "complicated" things you'll find when typing with JSDoc is how to type class constructors. Let's say a function receives a parameter that is not an instance of the class but its constructor, the `@param` can't be the type of the class: you won't get the autocomplete if you call `new` on it.
+
+Using the previous feature you can define a `@typedef` with an `import` to the file and the brackets syntax (`import('...')['MyClass']`) to get the constructor reference... but what if you are on the same file as the class? that's when you use `{typeof MyClass}`.
+
+The `typeof Class` inside a type is not valid JSDoc, so this feature will transform it in order to use the convention `Class.<MyClass>`:
+
+```js
+/**
+ * @typedef {Class.<Rosario>} ClassRosario
+ */
+```
+
+This is enabled by default but you can disable it with the `typeOfTypes` option.
 
 ### Extending existing types
 
