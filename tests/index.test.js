@@ -79,6 +79,7 @@ describe('plugin', () => {
     });
     expect(sut.options).toEqual({
       typedefImports: true,
+      typeOfTypes: true,
       extendTypes: true,
       modulesOnMemberOf: true,
       modulesTypesShortName: true,
@@ -88,6 +89,11 @@ describe('plugin', () => {
     });
     expect(features.TypedefImports).toHaveBeenCalledTimes(1);
     expect(features.TypedefImports).toHaveBeenCalledWith(
+      events,
+      EVENT_NAMES,
+    );
+    expect(features.TypeOfTypes).toHaveBeenCalledTimes(1);
+    expect(features.TypeOfTypes).toHaveBeenCalledWith(
       events,
       EVENT_NAMES,
     );
@@ -131,6 +137,7 @@ describe('plugin', () => {
     // Then
     expect(sut.options).toEqual({
       typedefImports: false,
+      typeOfTypes: true,
       extendTypes: true,
       modulesOnMemberOf: true,
       modulesTypesShortName: true,
@@ -139,6 +146,28 @@ describe('plugin', () => {
       tagsReplacement: null,
     });
     expect(features.TypedefImports).toHaveBeenCalledTimes(0);
+  });
+
+  it('should be loaded without the typeof types feature', () => {
+    // Given
+    let sut = null;
+    let features = null;
+    // When
+    ({ plugin: sut, features } = loadPlugin({
+      typeOfTypes: false,
+    }));
+    // Then
+    expect(sut.options).toEqual({
+      typedefImports: true,
+      typeOfTypes: false,
+      extendTypes: true,
+      modulesOnMemberOf: true,
+      modulesTypesShortName: true,
+      parentTag: true,
+      typeScriptUtilityTypes: true,
+      tagsReplacement: null,
+    });
+    expect(features.TypeOfTypes).toHaveBeenCalledTimes(0);
   });
 
   it('should be loaded without the extend types feature', () => {
@@ -152,6 +181,7 @@ describe('plugin', () => {
     // Then
     expect(sut.options).toEqual({
       typedefImports: true,
+      typeOfTypes: true,
       extendTypes: false,
       modulesOnMemberOf: true,
       modulesTypesShortName: true,
@@ -173,6 +203,7 @@ describe('plugin', () => {
     // Then
     expect(sut.options).toEqual({
       typedefImports: true,
+      typeOfTypes: true,
       extendTypes: true,
       modulesOnMemberOf: false,
       modulesTypesShortName: true,
@@ -194,6 +225,7 @@ describe('plugin', () => {
     // Then
     expect(sut.options).toEqual({
       typedefImports: true,
+      typeOfTypes: true,
       extendTypes: true,
       modulesOnMemberOf: true,
       modulesTypesShortName: false,
@@ -215,6 +247,7 @@ describe('plugin', () => {
     // Then
     expect(sut.options).toEqual({
       typedefImports: true,
+      typeOfTypes: true,
       extendTypes: true,
       modulesOnMemberOf: true,
       modulesTypesShortName: true,
@@ -236,6 +269,7 @@ describe('plugin', () => {
     // Then
     expect(sut.options).toEqual({
       typedefImports: true,
+      typeOfTypes: true,
       extendTypes: true,
       modulesOnMemberOf: true,
       modulesTypesShortName: true,
@@ -265,6 +299,7 @@ describe('plugin', () => {
     });
     expect(sut.options).toEqual({
       typedefImports: true,
+      typeOfTypes: true,
       extendTypes: true,
       modulesOnMemberOf: true,
       modulesTypesShortName: true,

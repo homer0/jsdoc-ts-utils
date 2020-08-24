@@ -37,6 +37,7 @@ const traverseComments = (source, fn) => {
  */
 const options = {
   typedefImports: true,
+  typeOfTypes: true,
   extendTypes: true,
   modulesOnMemberOf: true,
   modulesTypesShortName: true,
@@ -55,6 +56,10 @@ const events = new EventEmitter();
 // Load the features..
 if (options.typedefImports) {
   new features.TypedefImports(events, EVENT_NAMES);
+}
+
+if (options.typeOfTypes) {
+  new features.TypeOfTypes(events, EVENT_NAMES);
 }
 
 if (options.extendTypes) {
