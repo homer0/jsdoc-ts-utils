@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/homer0/jsdoc-ts-utils/compare/1.1.0...1.1.1) (2020-08-24)
+
+
+### Bug Fixes
+
+* support multiline typedefs when extending a type ([8ecb515](https://github.com/homer0/jsdoc-ts-utils/commit/8ecb515f91fada146f492e8008d33701d49275e2))
+
 # [1.1.0](https://github.com/homer0/jsdoc-ts-utils/compare/1.0.1...1.1.0) (2020-08-24)
 
 
