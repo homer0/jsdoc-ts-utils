@@ -59,7 +59,7 @@
                 href="https://www.npmjs.com/package/jsdoc-ts-utils"
                 target="_blank"
             >View the package on NPM</a></li>
-        </ul><h3>Classes</h3><ul><li><a href="ExtendTypes.html">ExtendTypes</a></li><li><a href="ModulesOnMemberOf.html">ModulesOnMemberOf</a></li><li><a href="ModulesTypesShortName.html">ModulesTypesShortName</a></li><li><a href="TagsReplacement.html">TagsReplacement</a></li><li><a href="TSUtilitiesTypes.html">TSUtilitiesTypes</a><ul class='methods'><li data-type='method' style='display: none;'><a href="TSUtilitiesTypes.html#_findTypedefFile">_findTypedefFile</a></li></ul></li><li><a href="TypedefImports.html">TypedefImports</a></li></ul><h3><a href="global.html">Global</a></h3>
+        </ul><h3>Classes</h3><ul><li><a href="ExtendTypes.html">ExtendTypes</a></li><li><a href="ModulesOnMemberOf.html">ModulesOnMemberOf</a></li><li><a href="ModulesTypesShortName.html">ModulesTypesShortName</a></li><li><a href="TagsReplacement.html">TagsReplacement</a></li><li><a href="TSUtilitiesTypes.html">TSUtilitiesTypes</a><ul class='methods'><li data-type='method' style='display: none;'><a href="TSUtilitiesTypes.html#_findTypedefFile">_findTypedefFile</a></li></ul></li><li><a href="TypedefImports.html">TypedefImports</a></li><li><a href="TypeOfTypes.html">TypeOfTypes</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <div id="main">
@@ -122,6 +122,7 @@
   ],
   &quot;tsUtils&quot;: {
     &quot;typedefImports&quot;: true,
+    &quot;typeOfTypes&quot;: true,
     &quot;extendTypes&quot;: true,
     &quot;modulesOnMemberOf&quot;: true,
     &quot;modulesTypesShortName&quot;: true,
@@ -144,6 +145,11 @@
 <td><code>typedefImports</code></td>
 <td><code>true</code></td>
 <td>Whether or not to enable the feature that removes <code>typedef</code> statements that use <code>import</code>.</td>
+</tr>
+<tr>
+<td><code>typeOfTypes</code></td>
+<td><code>true</code></td>
+<td>Whether or not to enable the feature that replaces <code>{typeof T}</code> with <code>{Class.&lt;T&gt;}</code>.</td>
 </tr>
 <tr>
 <td><code>extendTypes</code></td>
@@ -194,6 +200,19 @@
 </code></pre>
 <p>The feature will only replace the line for the <code>@typedef</code> and leave the rest.</p>
 <p>This is enabled by default but you can disable it with the <code>typedefImports</code> option.</p>
+<h3>Use <code>typeof</code> as a type</h3>
+<pre class="prettyprint source lang-js"><code>/**
+ * @typedef {typeof Rosario} ClassRosario
+ */
+</code></pre>
+<p>One of the most &quot;complicated&quot; things you'll find when typing with JSDoc is how to type class constructors. Let's say a function receives a parameter that is not an instance of the class but its constructor, the <code>@param</code> can't be the type of the class: you won't get the autocomplete if you call <code>new</code> on it.</p>
+<p>Using the previous feature you can define a <code>@typedef</code> with an <code>import</code> to the file and the brackets syntax (<code>import('...')['MyClass']</code>) to get the constructor reference... but what if you are on the same file as the class? that's when you use <code>{typeof MyClass}</code>.</p>
+<p>The <code>typeof Class</code> inside a type is not valid JSDoc, so this feature will transform it in order to use the convention <code>Class.&lt;MyClass&gt;</code>:</p>
+<pre class="prettyprint source lang-js"><code>/**
+ * @typedef {Class.&lt;Rosario>} ClassRosario
+ */
+</code></pre>
+<p>This is enabled by default but you can disable it with the <code>typeOfTypes</code> option.</p>
 <h3>Extending existing types</h3>
 <pre class="prettyprint source lang-js"><code>/**
  * @typedef {Object} Entity

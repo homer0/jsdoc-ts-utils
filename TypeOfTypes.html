@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8" />
-    <title>features/modulesTypesShortName.js - jsdoc-ts-utils docs</title>
+    <title>TypeOfTypes - jsdoc-ts-utils docs</title>
     
     
     
@@ -64,92 +64,214 @@
 
 <div id="main">
     
-    <h1 class="page-title">features/modulesTypesShortName.js</h1>
+    <h1 class="page-title">TypeOfTypes</h1>
     
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>// @ts-check
-/**
- * This class monkey-patches the function JSDoc uses to register links in order to create "aliases"
- * for external types and modules' types so they can be used without the `external:` and
- * `module:[name].` prefixes.
- * For example: `module:shared/apiClient.APIClient` would also register `APIClient`; and
- * `external:Express` would also register `Express`.
- */
-class ModulesTypesShortName {
-  /**
-   * @param {EventEmitter}        events              To hook to the event triggered when parsing
-   *                                                  begins.
-   * @param {JSDocTemplateHelper} jsdocTemplateHelper To monkey-patch the `registerLink` function.
-   * @param {EVENT_NAMES}         EVENT_NAMES         To get the name of the event the class needs
-   *                                                  to listen for.
-   */
-  constructor(events, jsdocTemplateHelper, EVENT_NAMES) {
-    /**
-     * A local reference for the JSDoc template helper, where the `registerLink` function will
-     * be monkey-patched.
-     *
-     * @type {JSDocTemplateHelper}
-     * @access protected
-     * @ignore
-     */
-    this._jsdocTemplateHelper = jsdocTemplateHelper;
-    // Setup the listener.
-    events.on(EVENT_NAMES.parseBegin, this._monkyPatchRegisterLink.bind(this));
-  }
-  /**
-   * This is called by the plugin before starting to parse the files; the method takes care of
-   * validating if the `registerLink` function of the template helper was already patched and
-   * patch it if it wasn't.
-   *
-   * @access protected
-   * @ignore
-   */
-  _monkyPatchRegisterLink() {
-    // Check if the function needs patching.
-    if (!('monkey' in this._jsdocTemplateHelper.registerLink)) {
-      // Get a reference for the original.
-      const original = this._jsdocTemplateHelper.registerLink;
-      /**
-       * The patch.
-       *
-       * @type {JSDocTemplateHelperRegisterLink}
-       * @ignore
-       */
-      const patch = (longname, fileUrl) => {
-        // Call the original function.
-        const result = original(longname, fileUrl);
-        // Extract the short name.
-        const match = /module:[^\.]+\.((?:[^\.]+\.)?[^\.]+)$/i.exec(longname) ||
-          /external:([^\.]+)$/i.exec(longname);
-        if (match) {
-          // If a short name was found, register it.
-          const [, shortname] = match;
-          original(shortname, fileUrl);
-        }
+        <h2>
+        TypeOfTypes
+        </h2>
+        
+            <div class="class-description usertext"><p>This class takes care of fixing JSDoc comments that use <code>typeof T</code> as a type and replace it with
+<code>Class.&lt;T&gt;</code>.</p></div>
+        
+    
+</header>
 
-        // Return the original result.
-        return result;
-      };
-      // Add the flag.
-      // @ts-ignore
-      patch.monkey = true;
-      // Replace the function on the helper.
-      this._jsdocTemplateHelper.registerLink = patch;
-    }
-  }
-}
+<article>
+    
+        <div class="container-overview">
+        
+            
 
-module.exports.ModulesTypesShortName = ModulesTypesShortName;
-</code></pre>
-        </article>
-    </section>
+    
+    <h2>Constructor</h2>
+    
+
+    <h4 class="name" id="TypeOfTypes"><span class="type-signature"></span>new TypeOfTypes<span class="signature">(events, EVENT_NAMES)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+<dl class="details">
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="features_typeOfTypes.js.html">features/typeOfTypes.js</a>, <a href="features_typeOfTypes.js.html#line11">line 11</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>events</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a  target="_blank" href="https://nodejs.org/api/events.html">EventEmitter</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>To hook to the necessary events to parse the code.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>EVENT_NAMES</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#EVENT_NAMES">EVENT_NAMES</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>To get the name of the events the class needs to listen for.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        </div>
+    
+
+    
+
+    
+
+    
+    
+    
+
+     
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

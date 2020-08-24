@@ -59,7 +59,7 @@
                 href="https://www.npmjs.com/package/jsdoc-ts-utils"
                 target="_blank"
             >View the package on NPM</a></li>
-        </ul><h3>Classes</h3><ul><li><a href="ExtendTypes.html">ExtendTypes</a></li><li><a href="ModulesOnMemberOf.html">ModulesOnMemberOf</a></li><li><a href="ModulesTypesShortName.html">ModulesTypesShortName</a></li><li><a href="TagsReplacement.html">TagsReplacement</a></li><li><a href="TSUtilitiesTypes.html">TSUtilitiesTypes</a><ul class='methods'><li data-type='method' style='display: none;'><a href="TSUtilitiesTypes.html#_findTypedefFile">_findTypedefFile</a></li></ul></li><li><a href="TypedefImports.html">TypedefImports</a></li></ul><h3><a href="global.html">Global</a></h3>
+        </ul><h3>Classes</h3><ul><li><a href="ExtendTypes.html">ExtendTypes</a></li><li><a href="ModulesOnMemberOf.html">ModulesOnMemberOf</a></li><li><a href="ModulesTypesShortName.html">ModulesTypesShortName</a></li><li><a href="TagsReplacement.html">TagsReplacement</a></li><li><a href="TSUtilitiesTypes.html">TSUtilitiesTypes</a><ul class='methods'><li data-type='method' style='display: none;'><a href="TSUtilitiesTypes.html#_findTypedefFile">_findTypedefFile</a></li></ul></li><li><a href="TypedefImports.html">TypedefImports</a></li><li><a href="TypeOfTypes.html">TypeOfTypes</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <div id="main">
@@ -458,8 +458,6 @@ features should start making modifications to the code.</p></td>
         
 
         
-        <th>Default</th>
-        
 
         <th class="last">Description</th>
     </tr>
@@ -485,22 +483,15 @@ features should start making modifications to the code.</p></td>
             
                 <td class="attributes">
                 
-                    &lt;optional><br>
-                
 
                 
                 </td>
             
 
             
-                <td class="default">
-                
-                    <code>true</code>
-                
-                </td>
-            
 
-            <td class="description last"><p>Whether or not to enable the feature that removes <code>typedef</code> statements that use <code>import</code>.</p></td>
+            <td class="description last"><p>Whether or not to enable the feature that removes <code>typedef</code> statements that use <code>import</code>.
+Default <code>true</code>.</p></td>
         </tr>
 
     
@@ -522,22 +513,15 @@ features should start making modifications to the code.</p></td>
             
                 <td class="attributes">
                 
-                    &lt;optional><br>
-                
 
                 
                 </td>
             
 
             
-                <td class="default">
-                
-                    <code>true</code>
-                
-                </td>
-            
 
-            <td class="description last"><p>Whether or not to enable the feature that allows intersections to be reformatted.</p></td>
+            <td class="description last"><p>Whether or not to enable the feature that allows intersections to be reformatted.
+Default <code>true</code>.</p></td>
         </tr>
 
     
@@ -559,23 +543,15 @@ features should start making modifications to the code.</p></td>
             
                 <td class="attributes">
                 
-                    &lt;optional><br>
-                
 
                 
                 </td>
             
 
-            
-                <td class="default">
-                
-                    <code>true</code>
-                
-                </td>
             
 
             <td class="description last"><p>Whether or not to enable the feature that fixes modules' paths on <code>memeberof</code> so they can
-use dot notation.</p></td>
+use dot notation. Default <code>true</code>.</p></td>
         </tr>
 
     
@@ -597,22 +573,14 @@ use dot notation.</p></td>
             
                 <td class="attributes">
                 
-                    &lt;optional><br>
-                
 
                 
                 </td>
             
 
             
-                <td class="default">
-                
-                    <code>true</code>
-                
-                </td>
-            
 
-            <td class="description last"><p>Whether or not to register modules types without the module path too.</p></td>
+            <td class="description last"><p>Whether or not to register modules types without the module path too. Default <code>true</code>.</p></td>
         </tr>
 
     
@@ -634,22 +602,14 @@ use dot notation.</p></td>
             
                 <td class="attributes">
                 
-                    &lt;optional><br>
-                
 
                 
                 </td>
             
 
             
-                <td class="default">
-                
-                    <code>true</code>
-                
-                </td>
-            
 
-            <td class="description last"><p>Whether or not to transform all <code>parent</code> tags into <code>memberof</code>.</p></td>
+            <td class="description last"><p>Whether or not to transform all <code>parent</code> tags into <code>memberof</code>. Default <code>true</code>.</p></td>
         </tr>
 
     
@@ -671,22 +631,14 @@ use dot notation.</p></td>
             
                 <td class="attributes">
                 
-                    &lt;optional><br>
-                
 
                 
                 </td>
             
 
             
-                <td class="default">
-                
-                    <code>true</code>
-                
-                </td>
-            
 
-            <td class="description last"><p>Whether or not to add the external utility types from TypeScript.</p></td>
+            <td class="description last"><p>Whether or not to add the external utility types from TypeScript. Default <code>true</code>.</p></td>
         </tr>
 
     
@@ -708,8 +660,6 @@ use dot notation.</p></td>
             
                 <td class="attributes">
                 
-                    &lt;optional><br>
-                
 
                 
                     &lt;nullable><br>
@@ -718,15 +668,9 @@ use dot notation.</p></td>
             
 
             
-                <td class="default">
-                
-                    <code>null</code>
-                
-                </td>
-            
 
             <td class="description last"><p>A dictionary of tags to replace, they keys are the tags being used and the values the tag that
-should be used.</p></td>
+should be used. Default <code>null</code>.</p></td>
         </tr>
 
     

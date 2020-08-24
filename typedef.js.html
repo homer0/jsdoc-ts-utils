@@ -59,7 +59,7 @@
                 href="https://www.npmjs.com/package/jsdoc-ts-utils"
                 target="_blank"
             >View the package on NPM</a></li>
-        </ul><h3>Classes</h3><ul><li><a href="ExtendTypes.html">ExtendTypes</a></li><li><a href="ModulesOnMemberOf.html">ModulesOnMemberOf</a></li><li><a href="ModulesTypesShortName.html">ModulesTypesShortName</a></li><li><a href="TagsReplacement.html">TagsReplacement</a></li><li><a href="TSUtilitiesTypes.html">TSUtilitiesTypes</a><ul class='methods'><li data-type='method' style='display: none;'><a href="TSUtilitiesTypes.html#_findTypedefFile">_findTypedefFile</a></li></ul></li><li><a href="TypedefImports.html">TypedefImports</a></li></ul><h3><a href="global.html">Global</a></h3>
+        </ul><h3>Classes</h3><ul><li><a href="ExtendTypes.html">ExtendTypes</a></li><li><a href="ModulesOnMemberOf.html">ModulesOnMemberOf</a></li><li><a href="ModulesTypesShortName.html">ModulesTypesShortName</a></li><li><a href="TagsReplacement.html">TagsReplacement</a></li><li><a href="TSUtilitiesTypes.html">TSUtilitiesTypes</a><ul class='methods'><li data-type='method' style='display: none;'><a href="TSUtilitiesTypes.html#_findTypedefFile">_findTypedefFile</a></li></ul></li><li><a href="TypedefImports.html">TypedefImports</a></li><li><a href="TypeOfTypes.html">TypeOfTypes</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <div id="main">
@@ -98,22 +98,24 @@
 
 /**
  * @typedef {Object} TSUtilsOptions
- * @property {boolean} [typedefImports=true]
+ * @property {boolean} typedefImports
  * Whether or not to enable the feature that removes `typedef` statements that use `import`.
- * @property {boolean} [extendTypes=true]
+ * Default `true`.
+ * @property {boolean} extendTypes
  * Whether or not to enable the feature that allows intersections to be reformatted.
- * @property {boolean} [modulesOnMemberOf=true]
+ * Default `true`.
+ * @property {boolean} modulesOnMemberOf
  * Whether or not to enable the feature that fixes modules' paths on `memeberof` so they can
- * use dot notation.
- * @property {boolean} [modulesTypesShortName=true]
- * Whether or not to register modules types without the module path too.
- * @property {boolean} [parentTag=true]
- * Whether or not to transform all `parent` tags into `memberof`.
- * @property {boolean} [typeScriptUtilityTypes=true]
- * Whether or not to add the external utility types from TypeScript.
- * @property {?Object.&lt;string,string>} [tagsReplacement=null]
+ * use dot notation. Default `true`.
+ * @property {boolean} modulesTypesShortName
+ * Whether or not to register modules types without the module path too. Default `true`.
+ * @property {boolean} parentTag
+ * Whether or not to transform all `parent` tags into `memberof`. Default `true`.
+ * @property {boolean} typeScriptUtilityTypes
+ * Whether or not to add the external utility types from TypeScript. Default `true`.
+ * @property {?Object.&lt;string,string>} tagsReplacement
  * A dictionary of tags to replace, they keys are the tags being used and the values the tag that
- * should be used.
+ * should be used. Default `null`.
  */
 
 /**

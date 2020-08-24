@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8" />
-    <title>features/modulesTypesShortName.js - jsdoc-ts-utils docs</title>
+    <title>features/typeOfTypes.js - jsdoc-ts-utils docs</title>
     
     
     
@@ -64,7 +64,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">features/modulesTypesShortName.js</h1>
+    <h1 class="page-title">features/typeOfTypes.js</h1>
     
 
     
@@ -76,77 +76,69 @@
         <article>
             <pre class="prettyprint source linenums"><code>// @ts-check
 /**
- * This class monkey-patches the function JSDoc uses to register links in order to create "aliases"
- * for external types and modules' types so they can be used without the `external:` and
- * `module:[name].` prefixes.
- * For example: `module:shared/apiClient.APIClient` would also register `APIClient`; and
- * `external:Express` would also register `Express`.
+ * This class takes care of fixing JSDoc comments that use `typeof T` as a type and replace it with
+ * `Class.&lt;T>`.
  */
-class ModulesTypesShortName {
+class TypeOfTypes {
   /**
-   * @param {EventEmitter}        events              To hook to the event triggered when parsing
-   *                                                  begins.
-   * @param {JSDocTemplateHelper} jsdocTemplateHelper To monkey-patch the `registerLink` function.
-   * @param {EVENT_NAMES}         EVENT_NAMES         To get the name of the event the class needs
-   *                                                  to listen for.
+   * @param {EventEmitter} events      To hook to the necessary events to parse the code.
+   * @param {EVENT_NAMES}  EVENT_NAMES To get the name of the events the class needs to listen for.
    */
-  constructor(events, jsdocTemplateHelper, EVENT_NAMES) {
+  constructor(events, EVENT_NAMES) {
     /**
-     * A local reference for the JSDoc template helper, where the `registerLink` function will
-     * be monkey-patched.
+     * The list of comments that use `typeof` on a type.
      *
-     * @type {JSDocTemplateHelper}
+     * @type {string[]}
      * @access protected
      * @ignore
      */
-    this._jsdocTemplateHelper = jsdocTemplateHelper;
-    // Setup the listener.
-    events.on(EVENT_NAMES.parseBegin, this._monkyPatchRegisterLink.bind(this));
+    this._comments = [];
+    // Setup the listeners.
+    events.on(EVENT_NAMES.newComment, this._readComment.bind(this));
+    events.on(EVENT_NAMES.commentsReady, this._replaceComments.bind(this));
   }
   /**
-   * This is called by the plugin before starting to parse the files; the method takes care of
-   * validating if the `registerLink` function of the template helper was already patched and
-   * patch it if it wasn't.
+   * This is called every time a new JSDoc comment block is found on a file. It validates if
+   * the block uses `typeof` as a type and saves it so it can be parsed later.
    *
+   * @param {string} comment The comment to analyze.
    * @access protected
    * @ignore
    */
-  _monkyPatchRegisterLink() {
-    // Check if the function needs patching.
-    if (!('monkey' in this._jsdocTemplateHelper.registerLink)) {
-      // Get a reference for the original.
-      const original = this._jsdocTemplateHelper.registerLink;
-      /**
-       * The patch.
-       *
-       * @type {JSDocTemplateHelperRegisterLink}
-       * @ignore
-       */
-      const patch = (longname, fileUrl) => {
-        // Call the original function.
-        const result = original(longname, fileUrl);
-        // Extract the short name.
-        const match = /module:[^\.]+\.((?:[^\.]+\.)?[^\.]+)$/i.exec(longname) ||
-          /external:([^\.]+)$/i.exec(longname);
-        if (match) {
-          // If a short name was found, register it.
-          const [, shortname] = match;
-          original(shortname, fileUrl);
-        }
-
-        // Return the original result.
-        return result;
-      };
-      // Add the flag.
-      // @ts-ignore
-      patch.monkey = true;
-      // Replace the function on the helper.
-      this._jsdocTemplateHelper.registerLink = patch;
+  _readComment(comment) {
+    if (comment.match(/\{\s*typeof\s+\w+\s*}/i)) {
+      this._comments.push(comment);
     }
+  }
+  /**
+   * This is called after all the JSDoc comments block for a file were found and the plugin is
+   * ready to make changes.
+   * The method takes all the comments that were found before and, if the comment includes a
+   * `typeof` on a type, it replaces it with `Class.&lt;Type>`.
+   *
+   * @param {string} source The code of the file being parsed.
+   * @returns {string}
+   * @access protected
+   * @ignore
+   */
+  _replaceComments(source) {
+    const result = this._comments.reduce(
+      (acc, comment) => acc.replace(
+        comment,
+        comment.replace(
+          /\{\s*typeof\s+(\w+)\s*}/gi,
+          '{Class.&lt;$1>}',
+        ),
+      ),
+      source,
+    );
+
+    this._comments = [];
+    return result;
   }
 }
 
-module.exports.ModulesTypesShortName = ModulesTypesShortName;
+module.exports.TypeOfTypes = TypeOfTypes;
 </code></pre>
         </article>
     </section>
