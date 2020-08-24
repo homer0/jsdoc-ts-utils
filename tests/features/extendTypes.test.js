@@ -143,4 +143,72 @@ describe('features:extendTypes', () => {
     expect(sut).toBeInstanceOf(ExtendTypes); // to avoid `no-new`.
     expect(result).toBe(expectedResult);
   });
+
+  it('should transform an intersection (multiline) into an extension', () => {
+    // Given
+    const sharedLines = [
+      ' * @memberof module:people',
+    ];
+    const extendedProperiesLines = [
+      ' * @property {number} name',
+      ' * @property {number} age',
+      ' * @property {number} height',
+    ];
+    const extendedType = 'Human';
+    const baseType = 'Entity';
+    const comment = [
+      '/**',
+      ` * @typedef {${baseType} & ${extendedType}Properties}`,
+      ` * ${extendedType}`,
+      ...sharedLines,
+      ' */',
+    ].join('\n');
+    const propertiesLines = [
+      '/**',
+      ` * @typedef {Object} ${extendedType}Properties`,
+      ...extendedProperiesLines,
+      ...sharedLines,
+      ` * @augments ${extendedType}`,
+      ' */',
+    ];
+    const propertiesComment = propertiesLines.join('\n');
+    const content = 'Some other code';
+    const source = [
+      comment,
+      propertiesComment,
+      content,
+    ].join('\n');
+    const events = {
+      on: jest.fn(),
+    };
+    let sut = null;
+    let onComment = null;
+    let onCommentsReady = null;
+    let result = null;
+    const newComment = [
+      '/**',
+      ` * @typedef {${baseType}}`,
+      ` * ${extendedType}`,
+      ...sharedLines,
+      ...extendedProperiesLines,
+      ' */',
+    ].join('\n');
+    const emptyBlock = new Array(propertiesLines.length - extendedProperiesLines.length)
+    .fill('')
+    .join('\n');
+    const expectedResult = [
+      newComment,
+      emptyBlock,
+      content,
+    ].join('\n');
+    // When
+    sut = new ExtendTypes(events, EVENT_NAMES);
+    [[, onComment], [, onCommentsReady]] = events.on.mock.calls;
+    onComment(comment);
+    onComment(propertiesComment);
+    result = onCommentsReady(source);
+    // Then
+    expect(sut).toBeInstanceOf(ExtendTypes); // to avoid `no-new`.
+    expect(result).toBe(expectedResult);
+  });
 });
