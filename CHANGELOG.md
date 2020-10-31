@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/homer0/jsdoc-ts-utils/compare/1.1.1...1.1.2) (2020-10-31)
+
+
+### Bug Fixes
+
+* **deps:** resolving the yarn problem in the CI ([d674e3b](https://github.com/homer0/jsdoc-ts-utils/commit/d674e3b2dfda80ebdd6b6e691db690b7a54f910d))
+
 ## [1.1.1](https://github.com/homer0/jsdoc-ts-utils/compare/1.1.0...1.1.1) (2020-08-24)
 
 
