@@ -294,9 +294,9 @@ I use [`husky`](https://yarnpkg.com/package/husky) to automatically install the 
 
 #### Commits convention
 
-I use [conventional commits](https://www.conventionalcommits.org) with [`commitizen`](https://yarnpkg.com/package/commitizen) in order to support semantic releases. The one that sets it up is actually husky, that installs a script that runs commitizen on the `git commit` command.
+I use [conventional commits](https://www.conventionalcommits.org) with [`commitlint`](https://commitlint.js.org) in order to support semantic releases. The one that sets it up is actually husky, that installs a script that runs `commitlint` on the `git commit` command.
 
-The hook for this is on `./utils/hooks/prepare-commit-msg` and the configuration for comitizen is on the `config.commitizen` property of the `package.json`.
+The configuration is on the `commitlint` property of the `package.json`.
 
 ### Releases
 
