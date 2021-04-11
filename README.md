@@ -1,7 +1,7 @@
 # JSDoc TypeScript utils
 
-[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/homer0/jsdoc-ts-utils/Test/master?style=flat-square)](https://github.com/homer0/jsdoc-ts-utils/actions?query=workflow%3ATest)
-[![Coveralls GitHub](https://img.shields.io/coveralls/github/homer0/jsdoc-ts-utils.svg?style=flat-square)](https://coveralls.io/github/homer0/jsdoc-ts-utils?branch=master)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/homer0/jsdoc-ts-utils/Test/main?style=flat-square)](https://github.com/homer0/jsdoc-ts-utils/actions?query=workflow%3ATest)
+[![Coveralls GitHub](https://img.shields.io/coveralls/github/homer0/jsdoc-ts-utils.svg?style=flat-square)](https://coveralls.io/github/homer0/jsdoc-ts-utils?branch=main)
 [![David](https://img.shields.io/david/homer0/jsdoc-ts-utils.svg?style=flat-square)](https://david-dm.org/homer0/jsdoc-ts-utils)
 [![David](https://img.shields.io/david/dev/homer0/jsdoc-ts-utils.svg?style=flat-square)](https://david-dm.org/homer0/jsdoc-ts-utils)
 
@@ -300,7 +300,7 @@ The configuration is on the `commitlint` property of the `package.json`.
 
 ### Releases
 
-I use [`semantic-release`](https://yarnpkg.com/package/semantic-release) and a GitHub action to automatically release on NPM everything that gets merged to master.
+I use [`semantic-release`](https://yarnpkg.com/package/semantic-release) and a GitHub action to automatically release on NPM everything that gets merged to main.
 
 The configuration for `semantic-release` is on `./releaserc` and the workflow for the release is on `./.github/workflow/release.yml`.
 
@@ -312,7 +312,7 @@ The configuration file is on `./.jestrc.json`, the tests are on `./tests` and th
 
 ### Linting
 
-I use [ESlint](https://eslint.org) with [my own custom configuration](https://yarnpkg.com/package/eslint-plugin-homer0) to validate all the JS code and the JSDoc comments.
+I use [ESlint](https://eslint.org) with [my own custom configuration](https://yarnpkg.com/package/@homer0/eslint-plugin) to validate all the JS code and the JSDoc comments.
 
 The configuration file for the project code is on `./.eslintrc` and the one for the tests is on `./tests/.eslintrc`, and there's also an `./.eslintignore` to exclude some files on the process. The script that runs it is on `./utils/scripts/lint`.
 
