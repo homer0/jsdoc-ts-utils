@@ -8,16 +8,17 @@
  */
 class ModulesTypesShortName {
   /**
-   * @param {EventEmitter}        events              To hook to the event triggered when parsing
-   *                                                  begins.
-   * @param {JSDocTemplateHelper} jsdocTemplateHelper To monkey-patch the `registerLink` function.
-   * @param {EVENT_NAMES}         EVENT_NAMES         To get the name of the event the class needs
-   *                                                  to listen for.
+   * @param {EventEmitter}        events               To hook to the event triggered when
+   *                                                   parsing begins.
+   * @param {JSDocTemplateHelper} jsdocTemplateHelper  To monkey-patch the `registerLink`
+   *                                                   function.
+   * @param {EventNames}          EVENT_NAMES          To get the name of the event the
+   *                                                   class needs to listen for.
    */
   constructor(events, jsdocTemplateHelper, EVENT_NAMES) {
     /**
-     * A local reference for the JSDoc template helper, where the `registerLink` function will
-     * be monkey-patched.
+     * A local reference for the JSDoc template helper, where the `registerLink` function
+     * will be monkey-patched.
      *
      * @type {JSDocTemplateHelper}
      * @access protected
@@ -28,9 +29,9 @@ class ModulesTypesShortName {
     events.on(EVENT_NAMES.parseBegin, this._monkyPatchRegisterLink.bind(this));
   }
   /**
-   * This is called by the plugin before starting to parse the files; the method takes care of
-   * validating if the `registerLink` function of the template helper was already patched and
-   * patch it if it wasn't.
+   * This is called by the plugin before starting to parse the files; the method takes
+   * care of validating if the `registerLink` function of the template helper was already
+   * patched and patch it if it wasn't.
    *
    * @access protected
    * @ignore
@@ -50,7 +51,8 @@ class ModulesTypesShortName {
         // Call the original function.
         const result = original(longname, fileUrl);
         // Extract the short name.
-        const match = /module:[^\.]+\.((?:[^\.]+\.)?[^\.]+)$/i.exec(longname) ||
+        const match =
+          /module:[^\.]+\.((?:[^\.]+\.)?[^\.]+)$/i.exec(longname) ||
           /external:([^\.]+)$/i.exec(longname);
         if (match) {
           // If a short name was found, register it.

@@ -1,7 +1,7 @@
 # JSDoc TypeScript utils
 
-[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/homer0/jsdoc-ts-utils/Test/master?style=flat-square)](https://github.com/homer0/jsdoc-ts-utils/actions?query=workflow%3ATest)
-[![Coveralls GitHub](https://img.shields.io/coveralls/github/homer0/jsdoc-ts-utils.svg?style=flat-square)](https://coveralls.io/github/homer0/jsdoc-ts-utils?branch=master)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/homer0/jsdoc-ts-utils/Test/main?style=flat-square)](https://github.com/homer0/jsdoc-ts-utils/actions?query=workflow%3ATest)
+[![Coveralls GitHub](https://img.shields.io/coveralls/github/homer0/jsdoc-ts-utils.svg?style=flat-square)](https://coveralls.io/github/homer0/jsdoc-ts-utils?branch=main)
 [![David](https://img.shields.io/david/homer0/jsdoc-ts-utils.svg?style=flat-square)](https://david-dm.org/homer0/jsdoc-ts-utils)
 [![David](https://img.shields.io/david/dev/homer0/jsdoc-ts-utils.svg?style=flat-square)](https://david-dm.org/homer0/jsdoc-ts-utils)
 
@@ -290,19 +290,17 @@ No modification to the `tagsReplacement` option will affect the `@parent` tag fe
 
 ### Repository hooks
 
-I use [`husky`](https://yarnpkg.com/package/husky) to automatically install the repository hooks so the code will be tested and linted before any commit and the dependencies updated after every merge.
-
-The configuration is on the `husky` property of the `package.json` and the hooks' files are on `./utils/hooks`.
+I use [`husky`](https://yarnpkg.com/package/husky) to automatically install the repository hooks so the code will be tested and linted before any commit, and the dependencies updated after every merge.
 
 #### Commits convention
 
-I use [conventional commits](https://www.conventionalcommits.org) with [`commitizen`](https://yarnpkg.com/package/commitizen) in order to support semantic releases. The one that sets it up is actually husky, that installs a script that runs commitizen on the `git commit` command.
+I use [conventional commits](https://www.conventionalcommits.org) with [`commitlint`](https://commitlint.js.org) in order to support semantic releases. The one that sets it up is actually husky, that installs a script that runs `commitlint` on the `git commit` command.
 
-The hook for this is on `./utils/hooks/prepare-commit-msg` and the configuration for comitizen is on the `config.commitizen` property of the `package.json`.
+The configuration is on the `commitlint` property of the `package.json`.
 
 ### Releases
 
-I use [`semantic-release`](https://yarnpkg.com/package/semantic-release) and a GitHub action to automatically release on NPM everything that gets merged to master.
+I use [`semantic-release`](https://yarnpkg.com/package/semantic-release) and a GitHub action to automatically release on NPM everything that gets merged to main.
 
 The configuration for `semantic-release` is on `./releaserc` and the workflow for the release is on `./.github/workflow/release.yml`.
 
@@ -314,7 +312,7 @@ The configuration file is on `./.jestrc.json`, the tests are on `./tests` and th
 
 ### Linting
 
-I use [ESlint](https://eslint.org) with [my own custom configuration](https://yarnpkg.com/package/eslint-plugin-homer0) to validate all the JS code and the JSDoc comments.
+I use [ESlint](https://eslint.org) with [my own custom configuration](https://yarnpkg.com/package/@homer0/eslint-plugin) to validate all the JS code and the JSDoc comments.
 
 The configuration file for the project code is on `./.eslintrc` and the one for the tests is on `./tests/.eslintrc`, and there's also an `./.eslintignore` to exclude some files on the process. The script that runs it is on `./utils/scripts/lint`.
 

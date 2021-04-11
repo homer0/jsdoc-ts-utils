@@ -8,8 +8,10 @@ const path = require('path');
  */
 class TSUtilitiesTypes {
   /**
-   * @param {EventEmitter} events      To hook to the necessary events to add the definitions.
-   * @param {EVENT_NAMES}  EVENT_NAMES To get the name of the events the class needs to listen for.
+   * @param {EventEmitter} events       To hook to the necessary events to add the
+   *                                    definitions.
+   * @param {EventNames}   EVENT_NAMES  To get the name of the events the class needs to
+   *                                    listen for.
    */
   constructor(events, EVENT_NAMES) {
     /**
@@ -21,8 +23,8 @@ class TSUtilitiesTypes {
      */
     this._typedefFile = null;
     /**
-     * A control flag used when parsing the files in order to know if the defintions were already
-     * added or not.
+     * A control flag used when parsing the files in order to know if the defintions were
+     * already added or not.
      *
      * @type {boolean}
      * @access protected
@@ -38,10 +40,10 @@ class TSUtilitiesTypes {
      */
     this._typesUrl = 'https://www.typescriptlang.org/docs/handbook/utility-types.html';
     /**
-     * The dictionary of the utility types. The keys are the names of the types and the values
-     * their anchor section on the documentation page.
+     * The dictionary of the utility types. The keys are the names of the types and the
+     * values their anchor section on the documentation page.
      *
-     * @type {Object.<string,string>}
+     * @type {Object.<string, string>}
      * @access protected
      * @ignore
      */
@@ -70,20 +72,18 @@ class TSUtilitiesTypes {
   /**
    * This is called by the plugin in order to add the types.
    *
-   * @param {string} source   The code of the file being parsed.
-   * @param {string} filename The path of the file being parsed. This is used in case a `typedef`
-   *                          file exists on the project, to validate if the comments should be
-   *                          added on that file.
+   * @param {string} source    The code of the file being parsed.
+   * @param {string} filename  The path of the file being parsed. This is used in case a
+   *                           `typedef`
+   *                           file exists on the project, to validate if the comments
+   *                           should be added on that file.
    * @returns {string}
    * @access protected
    * @ignore
    */
   _addTypes(source, filename) {
     let result;
-    if (
-      this._added ||
-      (this._typedefFile && filename !== this._typedefFile)
-    ) {
+    if (this._added || (this._typedefFile && filename !== this._typedefFile)) {
       result = source;
     } else {
       const comments = this._getComments();
@@ -94,19 +94,16 @@ class TSUtilitiesTypes {
     return result;
   }
   /**
-   * This is called by the plugin before the parsing beings, so the class can identify if the
-   * project includes a `typedef` file.
+   * This is called by the plugin before the parsing beings, so the class can identify if
+   * the project includes a `typedef` file.
    *
-   * @param {JSDocParseBeginEventPayload} event The event information, with the list of files that
-   *                                            going to be parsed.
-   *
+   * @param {JSDocParseBeginEventPayload} event  The event information, with the list of
+   *                                             files that going to be parsed.
    */
   _findTypedefFile(event) {
-    const typedef = event.sourcefiles.find((file) => (
-      path
-      .basename(file)
-      .match(/^typedef\.[jt]sx?$/)
-    ));
+    const typedef = event.sourcefiles.find((file) =>
+      path.basename(file).match(/^typedef\.[jt]sx?$/),
+    );
 
     this._typedefFile = typedef || null;
     this._added = false;
@@ -120,14 +117,14 @@ class TSUtilitiesTypes {
    */
   _getComments() {
     return Object.entries(this._types)
-    .map(([name, anchor]) => [
-      '/**',
-      ` * @external ${name}`,
-      ` * @see ${this._typesUrl}#${anchor}`,
-      ' */\n',
-    ])
-    .reduce((acc, lines) => [...acc, ...lines], [])
-    .join('\n');
+      .map(([name, anchor]) => [
+        '/**',
+        ` * @external ${name}`,
+        ` * @see ${this._typesUrl}#${anchor}`,
+        ' */\n',
+      ])
+      .reduce((acc, lines) => [...acc, ...lines], [])
+      .join('\n');
   }
 }
 

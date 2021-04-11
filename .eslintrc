@@ -1,8 +1,13 @@
 {
   "root": true,
-  "plugins": ["homer0"],
+  "plugins": ["@homer0"],
   "extends": [
-    "plugin:homer0/node",
-    "plugin:homer0/jsdoc"
-  ]
+    "plugin:@homer0/node-with-prettier",
+    "plugin:@homer0/jsdoc"
+  ],
+  "rules": {
+    "jsdoc/check-tag-names": ["error", {
+      "definedTags": ["parent", "prettierignore"]
+    }]
+  }
 }
