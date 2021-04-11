@@ -4,5 +4,10 @@
   "extends": [
     "plugin:@homer0/node-with-prettier",
     "plugin:@homer0/jsdoc"
-  ]
+  ],
+  "rules": {
+    "jsdoc/check-tag-names": ["error", {
+      "definedTags": ["parent", "prettierignore"]
+    }]
+  }
 }

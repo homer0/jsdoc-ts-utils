@@ -5,8 +5,9 @@
  */
 class ModulesOnMemberOf {
   /**
-   * @param {EventEmitter} events      To hook to the necessary events to parse the code.
-   * @param {EVENT_NAMES}  EVENT_NAMES To get the name of the events the class needs to listen for.
+   * @param {EventEmitter} events       To hook to the necessary events to parse the code.
+   * @param {EventNames}   EVENT_NAMES  To get the name of the events the class needs to
+   *                                    listen for.
    */
   constructor(events, EVENT_NAMES) {
     // Setup the listener.
@@ -15,7 +16,7 @@ class ModulesOnMemberOf {
   /**
    * This is called by the plugin in order to fix the modules' paths.
    *
-   * @param {string} source The code of the file being parsed.
+   * @param {string} source  The code of the file being parsed.
    * @returns {string}
    * @access protected
    * @ignore

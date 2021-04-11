@@ -13,10 +13,11 @@ const features = require('./features');
  */
 
 /**
- * Finds all the JSDoc comments on a source and _walks_ them by calling the traverse function.
+ * Finds all the JSDoc comments on a source and _walks_ them by calling the traverse
+ * function.
  *
- * @param {string}             source The code to analyze.
- * @param {CommentsTraverseFn} fn     The function that will be called for each comment.
+ * @param {string}             source  The code to analyze.
+ * @param {CommentsTraverseFn} fn      The function that will be called for each comment.
  * @ignore
  */
 const traverseComments = (source, fn) => {
@@ -71,19 +72,11 @@ if (options.modulesOnMemberOf) {
 }
 
 if (options.modulesTypesShortName) {
-  new features.ModulesTypesShortName(
-    events,
-    jsdocTemplateHelper,
-    EVENT_NAMES,
-  );
+  new features.ModulesTypesShortName(events, jsdocTemplateHelper, EVENT_NAMES);
 }
 
 if (options.parentTag) {
-  new features.TagsReplacement(
-    { parent: 'memberof' },
-    events,
-    EVENT_NAMES,
-  );
+  new features.TagsReplacement({ parent: 'memberof' }, events, EVENT_NAMES);
 }
 
 if (options.typeScriptUtilityTypes) {
@@ -91,11 +84,7 @@ if (options.typeScriptUtilityTypes) {
 }
 
 if (options.tagsReplacement && Object.keys(options.tagsReplacement).length) {
-  new features.TagsReplacement(
-    options.tagsReplacement,
-    events,
-    EVENT_NAMES,
-  );
+  new features.TagsReplacement(options.tagsReplacement, events, EVENT_NAMES);
 }
 /**
  * Export all the loaded optiones.
@@ -116,16 +105,13 @@ module.exports.handlers = {
   },
   beforeParse(event) {
     const { source, filename } = event;
-    traverseComments(source, (comment) => events.emit(
-      EVENT_NAMES.newComment,
-      comment,
-      filename,
-    ));
+    traverseComments(source, (comment) =>
+      events.emit(EVENT_NAMES.newComment, comment, filename),
+    );
 
     // eslint-disable-next-line no-param-reassign
-    event.source = events.listeners(EVENT_NAMES.commentsReady).reduce(
-      (acc, listener) => listener(acc, filename),
-      source,
-    );
+    event.source = events
+      .listeners(EVENT_NAMES.commentsReady)
+      .reduce((acc, listener) => listener(acc, filename), source);
   },
 };
