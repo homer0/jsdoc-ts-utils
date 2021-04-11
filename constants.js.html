@@ -76,18 +76,19 @@
         <article>
             <pre class="prettyprint source linenums"><code>// @ts-check
 /**
- * @typedef {Object} EVENT_NAMES
- * @property {string} parseBegin    The event triggered before the files are parsed.
- * @property {string} newComment    The event triggered when the plugin finds a new JSDoc comment.
- * @property {string} commentsReady The event triggered when all the comments were analyzed and the
- *                                  features should start making modifications to the code.
- *
+ * @typedef {Object} EventNames
+ * @property {string} parseBegin     The event triggered before the files are parsed.
+ * @property {string} newComment     The event triggered when the plugin finds a new JSDoc
+ *                                   comment.
+ * @property {string} commentsReady  The event triggered when all the comments were
+ *                                   analyzed and the features should start making
+ *                                   modifications to the code.
  */
 
 /**
  * A dictionary with the different events the plugin uses.
  *
- * @type {EVENT_NAMES}
+ * @type {EventNames}
  * @ignore
  */
 const EVENT_NAMES = {

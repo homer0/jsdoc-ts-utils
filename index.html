@@ -90,8 +90,8 @@
 
     <section class="readme usertext">
         <article><h1>JSDoc TypeScript utils</h1>
-<p><a href="https://github.com/homer0/jsdoc-ts-utils/actions?query=workflow%3ATest"><img src="https://img.shields.io/github/workflow/status/homer0/jsdoc-ts-utils/Test/master?style=flat-square" alt="GitHub Workflow Status (branch)"></a>
-<a href="https://coveralls.io/github/homer0/jsdoc-ts-utils?branch=master"><img src="https://img.shields.io/coveralls/github/homer0/jsdoc-ts-utils.svg?style=flat-square" alt="Coveralls GitHub"></a>
+<p><a href="https://github.com/homer0/jsdoc-ts-utils/actions?query=workflow%3ATest"><img src="https://img.shields.io/github/workflow/status/homer0/jsdoc-ts-utils/Test/main?style=flat-square" alt="GitHub Workflow Status (branch)"></a>
+<a href="https://coveralls.io/github/homer0/jsdoc-ts-utils?branch=main"><img src="https://img.shields.io/coveralls/github/homer0/jsdoc-ts-utils.svg?style=flat-square" alt="Coveralls GitHub"></a>
 <a href="https://david-dm.org/homer0/jsdoc-ts-utils"><img src="https://img.shields.io/david/homer0/jsdoc-ts-utils.svg?style=flat-square" alt="David"></a>
 <a href="https://david-dm.org/homer0/jsdoc-ts-utils"><img src="https://img.shields.io/david/dev/homer0/jsdoc-ts-utils.svg?style=flat-square" alt="David"></a></p>
 <p>A plugin with utilities to make your TypeScript-like docs JSDoc valid</p>
@@ -365,19 +365,18 @@
 </tbody>
 </table>
 <h3>Repository hooks</h3>
-<p>I use <a href="https://yarnpkg.com/package/husky"><code>husky</code></a> to automatically install the repository hooks so the code will be tested and linted before any commit and the dependencies updated after every merge.</p>
-<p>The configuration is on the <code>husky</code> property of the <code>package.json</code> and the hooks' files are on <code>./utils/hooks</code>.</p>
+<p>I use <a href="https://yarnpkg.com/package/husky"><code>husky</code></a> to automatically install the repository hooks so the code will be tested and linted before any commit, and the dependencies updated after every merge.</p>
 <h4>Commits convention</h4>
-<p>I use <a href="https://www.conventionalcommits.org">conventional commits</a> with <a href="https://yarnpkg.com/package/commitizen"><code>commitizen</code></a> in order to support semantic releases. The one that sets it up is actually husky, that installs a script that runs commitizen on the <code>git commit</code> command.</p>
-<p>The hook for this is on <code>./utils/hooks/prepare-commit-msg</code> and the configuration for comitizen is on the <code>config.commitizen</code> property of the <code>package.json</code>.</p>
+<p>I use <a href="https://www.conventionalcommits.org">conventional commits</a> with <a href="https://commitlint.js.org"><code>commitlint</code></a> in order to support semantic releases. The one that sets it up is actually husky, that installs a script that runs <code>commitlint</code> on the <code>git commit</code> command.</p>
+<p>The configuration is on the <code>commitlint</code> property of the <code>package.json</code>.</p>
 <h3>Releases</h3>
-<p>I use <a href="https://yarnpkg.com/package/semantic-release"><code>semantic-release</code></a> and a GitHub action to automatically release on NPM everything that gets merged to master.</p>
+<p>I use <a href="https://yarnpkg.com/package/semantic-release"><code>semantic-release</code></a> and a GitHub action to automatically release on NPM everything that gets merged to main.</p>
 <p>The configuration for <code>semantic-release</code> is on <code>./releaserc</code> and the workflow for the release is on <code>./.github/workflow/release.yml</code>.</p>
 <h3>Testing</h3>
 <p>I use <a href="https://facebook.github.io/jest/">Jest</a> to test the project.</p>
 <p>The configuration file is on <code>./.jestrc.json</code>, the tests are on <code>./tests</code> and the script that runs it is on <code>./utils/scripts/test</code>.</p>
 <h3>Linting</h3>
-<p>I use <a href="https://eslint.org">ESlint</a> with <a href="https://yarnpkg.com/package/eslint-plugin-homer0">my own custom configuration</a> to validate all the JS code and the JSDoc comments.</p>
+<p>I use <a href="https://eslint.org">ESlint</a> with <a href="https://yarnpkg.com/package/@homer0/eslint-plugin">my own custom configuration</a> to validate all the JS code and the JSDoc comments.</p>
 <p>The configuration file for the project code is on <code>./.eslintrc</code> and the one for the tests is on <code>./tests/.eslintrc</code>, and there's also an <code>./.eslintignore</code> to exclude some files on the process. The script that runs it is on <code>./utils/scripts/lint</code>.</p>
 <h3>Documentation</h3>
 <p>I use <a href="https://jsdoc.app">JSDoc</a> to generate an HTML documentation site for the project.</p>

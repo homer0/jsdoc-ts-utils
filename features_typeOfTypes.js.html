@@ -81,8 +81,9 @@
  */
 class TypeOfTypes {
   /**
-   * @param {EventEmitter} events      To hook to the necessary events to parse the code.
-   * @param {EVENT_NAMES}  EVENT_NAMES To get the name of the events the class needs to listen for.
+   * @param {EventEmitter} events       To hook to the necessary events to parse the code.
+   * @param {EventNames}   EVENT_NAMES  To get the name of the events the class needs to
+   *                                    listen for.
    */
   constructor(events, EVENT_NAMES) {
     /**
@@ -98,10 +99,10 @@ class TypeOfTypes {
     events.on(EVENT_NAMES.commentsReady, this._replaceComments.bind(this));
   }
   /**
-   * This is called every time a new JSDoc comment block is found on a file. It validates if
-   * the block uses `typeof` as a type and saves it so it can be parsed later.
+   * This is called every time a new JSDoc comment block is found on a file. It validates
+   * if the block uses `typeof` as a type and saves it so it can be parsed later.
    *
-   * @param {string} comment The comment to analyze.
+   * @param {string} comment  The comment to analyze.
    * @access protected
    * @ignore
    */
@@ -111,25 +112,23 @@ class TypeOfTypes {
     }
   }
   /**
-   * This is called after all the JSDoc comments block for a file were found and the plugin is
-   * ready to make changes.
-   * The method takes all the comments that were found before and, if the comment includes a
-   * `typeof` on a type, it replaces it with `Class.&lt;Type>`.
+   * This is called after all the JSDoc comments block for a file were found and the
+   * plugin is ready to make changes.
+   * The method takes all the comments that were found before and, if the comment includes
+   * a `typeof` on a type, it replaces it with `Class.&lt;Type>`.
    *
-   * @param {string} source The code of the file being parsed.
+   * @param {string} source  The code of the file being parsed.
    * @returns {string}
    * @access protected
    * @ignore
    */
   _replaceComments(source) {
     const result = this._comments.reduce(
-      (acc, comment) => acc.replace(
-        comment,
-        comment.replace(
-          /\{\s*typeof\s+(\w+)\s*}/gi,
-          '{Class.&lt;$1>}',
+      (acc, comment) =>
+        acc.replace(
+          comment,
+          comment.replace(/\{\s*typeof\s+(\w+)\s*}/gi, '{Class.&lt;$1>}'),
         ),
-      ),
       source,
     );
 

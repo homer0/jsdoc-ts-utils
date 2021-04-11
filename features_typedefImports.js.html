@@ -81,8 +81,9 @@
  */
 class TypedefImports {
   /**
-   * @param {EventEmitter} events      To hook to the necessary events to parse the code.
-   * @param {EVENT_NAMES}  EVENT_NAMES To get the name of the events the class needs to listen for.
+   * @param {EventEmitter} events       To hook to the necessary events to parse the code.
+   * @param {EventNames}   EVENT_NAMES  To get the name of the events the class needs to
+   *                                    listen for.
    */
   constructor(events, EVENT_NAMES) {
     /**
@@ -108,10 +109,10 @@ class TypedefImports {
     events.on(EVENT_NAMES.commentsReady, this._replaceComments.bind(this));
   }
   /**
-   * This is called every time a new JSDoc comment block is found on a file. It validates if
-   * the block uses `import(...)` and saves it so it can be parsed later.
+   * This is called every time a new JSDoc comment block is found on a file. It validates
+   * if the block uses `import(...)` and saves it so it can be parsed later.
    *
-   * @param {string} comment The comment to analyze.
+   * @param {string} comment  The comment to analyze.
    * @access protected
    * @ignore
    */
@@ -121,31 +122,28 @@ class TypedefImports {
     }
   }
   /**
-   * This is called after all the JSDoc comments block for a file were found and the plugin is
-   * ready to make changes.
-   * The method takes all the comments that were found before and, if the comment includes an
-   * `external` statement, it just replaces the `typedef` line with an empty one; but if it
-   * doesn't, it gets replaced with empty lines.
+   * This is called after all the JSDoc comments block for a file were found and the
+   * plugin is ready to make changes.
+   * The method takes all the comments that were found before and, if the comment includes
+   * an `external` statement, it just replaces the `typedef` line with an empty one; but
+   * if it doesn't, it gets replaced with empty lines.
    *
-   * @param {string} source The code of the file being parsed.
+   * @param {string} source  The code of the file being parsed.
    * @returns {string}
    * @access protected
    * @ignore
    */
   _replaceComments(source) {
-    const result = this._comments.reduce(
-      (acc, comment) => {
-        let lines = comment.split('\n');
-        if (comment.match(/^\s*\*\s*@external\s+/mi)) {
-          lines = lines.map((line) => (line.match(this._importExpression) ? ' * ' : line));
-        } else {
-          lines = lines.map(() => '');
-        }
+    const result = this._comments.reduce((acc, comment) => {
+      let lines = comment.split('\n');
+      if (comment.match(/^\s*\*\s*@external\s+/im)) {
+        lines = lines.map((line) => (line.match(this._importExpression) ? ' * ' : line));
+      } else {
+        lines = lines.map(() => '');
+      }
 
-        return acc.replace(comment, lines.join('\n'));
-      },
-      source,
-    );
+      return acc.replace(comment, lines.join('\n'));
+    }, source);
 
     this._comments = [];
     return result;
