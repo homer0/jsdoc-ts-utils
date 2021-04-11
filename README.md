@@ -290,9 +290,7 @@ No modification to the `tagsReplacement` option will affect the `@parent` tag fe
 
 ### Repository hooks
 
-I use [`husky`](https://yarnpkg.com/package/husky) to automatically install the repository hooks so the code will be tested and linted before any commit and the dependencies updated after every merge.
-
-The configuration is on the `husky` property of the `package.json` and the hooks' files are on `./utils/hooks`.
+I use [`husky`](https://yarnpkg.com/package/husky) to automatically install the repository hooks so the code will be tested and linted before any commit, and the dependencies updated after every merge.
 
 #### Commits convention
 
