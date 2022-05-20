@@ -19,7 +19,7 @@ jobs:
           node-version: '${{ steps.nvm.outputs.NVMRC }}'
       - name: Install dependencies
         env:
-          HUSKY_SKIP_INSTALL: 1
+          HUSKY: 0
         run: yarn --frozen-lockfile
       - run: yarn semantic-release
         env:
@@ -30,6 +30,5 @@ jobs:
       - name: Deploy documentation
         uses: JamesIves/github-pages-deploy-action@4.1.1
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages
           FOLDER: docs
