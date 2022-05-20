@@ -1,3 +1,15 @@
+# [3.0.0](https://github.com/homer0/jsdoc-ts-utils/compare/2.0.1...3.0.0) (2022-05-20)
+
+
+### Bug Fixes
+
+* drop support for Node 12 ([2cf5881](https://github.com/homer0/jsdoc-ts-utils/commit/2cf588129b212c1b86de1288ffee419825dfac46))
+
+
+### BREAKING CHANGES
+
+* This package no longer supports Node 12.
+
 ## [2.0.1](https://github.com/homer0/jsdoc-ts-utils/compare/2.0.0...2.0.1) (2021-09-04)
 
 
