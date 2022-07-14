@@ -21,7 +21,7 @@ const features = require('./features');
  * @ignore
  */
 const traverseComments = (source, fn) => {
-  const regex = /\/\*\*\s*\n(?:[^\*]|\*[^\/])*\*\//g;
+  const regex = /\/\*\*\s*(?:[^\*]|\*[^\/])*\*\//g;
   let match = regex.exec(source);
   while (match) {
     const [comment] = match;
