@@ -1,3 +1,18 @@
+# [3.1.0](https://github.com/homer0/jsdoc-ts-utils/compare/3.0.0...3.1.0) (2022-10-29)
+
+
+### Bug Fixes
+
+* avoid processing blocks with ignore tag ([a35a8f2](https://github.com/homer0/jsdoc-ts-utils/commit/a35a8f23ecec6c94ce419e3b514f75960240815d))
+* do not require newline for parsed comments ([4444d82](https://github.com/homer0/jsdoc-ts-utils/commit/4444d82dae7ba37500725d81ce8d3d1133e74638))
+* update dependencies ([5253ad6](https://github.com/homer0/jsdoc-ts-utils/commit/5253ad6f34388aa17ec0d0a58edcc75f135ad657))
+
+
+### Features
+
+* add option to remove single tags ([ec0cdae](https://github.com/homer0/jsdoc-ts-utils/commit/ec0cdae9016c6e3bdb48428a11c43118ea9d98de))
+* add option to remove tagged blocks ([75d7558](https://github.com/homer0/jsdoc-ts-utils/commit/75d7558648d56f6fb104db31d3c165472e0cdc7f))
+
 # [3.0.0](https://github.com/homer0/jsdoc-ts-utils/compare/2.0.1...3.0.0) (2022-05-20)
 
 
