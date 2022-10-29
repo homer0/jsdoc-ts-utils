@@ -49,6 +49,7 @@ Since JSDoc doesn't allow to add configuration options on the `plugins` list, if
     "modulesOnMemberOf": true,
     "modulesTypesShortName": true,
     "parentTag": true,
+    "removeTaggedBlocks": true,
     "typeScriptUtilityTypes": true,
     "tagsReplacement": {}
   }
@@ -63,6 +64,7 @@ Since JSDoc doesn't allow to add configuration options on the `plugins` list, if
 | `modulesOnMemberOf` | `true` | Whether or not to enable the feature that fixes modules' paths on `memeberof` so they can use dot notation. |
 | `modulesTypesShortName` | `true` | Whether or not to register modules types without the module path too. |
 | `parentTag` | `true` | Whether or not to transform all `parent` tags into `memberof`. |
+| `removeTaggedBlocks` | `true` | Whether or not to remove all blocks that have a `@jsdoc-remove` tag. |
 | `typeScriptUtilityTypes` | `true` | Whether or not to add the external utility types from TypeScript. |
 | `tagsReplacement` | `null` | A dictionary of tags to replace, they keys are the tags being used and the values the tag that should be used. |
 
@@ -220,6 +222,19 @@ This feature is simply an alias for `@memberof`: you put whatever you want in th
 > If you are taking advantage of this feature and using the ESLint plugin, you should add `parent` to the `definedTags` option of the `jsdoc/check-tag-names` rule.
 
 This is enabled by default but you can disable it with the `parentTag` option.
+
+### Remove blocks
+
+```js
+/**
+ * @typedef {JQuery.AjaxSettings['success']} JQueryOnSuccess
+ * @jsdoc-remove
+ */
+```
+
+Sometimes you have types that could make the site generation fail, and you can't fix them with any of the other features this plugin provides. For those cases, you can use the `@jsdoc-remove` tag to completely remove the block before it even gets processed by the JSDoc CLI.
+
+This is enabled by default but you can disable it with the `removeTaggedBlocks` option.
 
 ### TypeScript utility types
 
