@@ -45,6 +45,7 @@ const options = {
   modulesOnMemberOf: true,
   modulesTypesShortName: true,
   parentTag: true,
+  removeTaggedBlocks: true,
   typeScriptUtilityTypes: true,
   tagsReplacement: null,
   ...(jsdocEnv.conf.tsUtils || {}),
@@ -57,6 +58,10 @@ const options = {
 const events = new EventEmitter();
 
 // Load the features..
+if (options.removeTaggedBlocks) {
+  new features.RemoveTaggedBlocks(events, EVENT_NAMES);
+}
+
 if (options.typedefImports) {
   new features.TypedefImports(events, EVENT_NAMES);
 }
