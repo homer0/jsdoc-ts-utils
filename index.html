@@ -59,7 +59,7 @@
                 href="https://www.npmjs.com/package/jsdoc-ts-utils"
                 target="_blank"
             >View the package on NPM</a></li>
-        </ul><h3>Classes</h3><ul><li><a href="ExtendTypes.html">ExtendTypes</a></li><li><a href="ModulesOnMemberOf.html">ModulesOnMemberOf</a></li><li><a href="ModulesTypesShortName.html">ModulesTypesShortName</a></li><li><a href="TagsReplacement.html">TagsReplacement</a></li><li><a href="TSUtilitiesTypes.html">TSUtilitiesTypes</a><ul class='methods'><li data-type='method' style='display: none;'><a href="TSUtilitiesTypes.html#_findTypedefFile">_findTypedefFile</a></li></ul></li><li><a href="TypedefImports.html">TypedefImports</a></li><li><a href="TypeOfTypes.html">TypeOfTypes</a></li></ul><h3><a href="global.html">Global</a></h3>
+        </ul><h3>Classes</h3><ul><li><a href="ExtendTypes.html">ExtendTypes</a></li><li><a href="ModulesOnMemberOf.html">ModulesOnMemberOf</a></li><li><a href="ModulesTypesShortName.html">ModulesTypesShortName</a></li><li><a href="RemoveTaggedBlocks.html">RemoveTaggedBlocks</a></li><li><a href="RemoveTags.html">RemoveTags</a></li><li><a href="TagsReplacement.html">TagsReplacement</a></li><li><a href="TSUtilitiesTypes.html">TSUtilitiesTypes</a><ul class='methods'><li data-type='method' style='display: none;'><a href="TSUtilitiesTypes.html#_findTypedefFile">_findTypedefFile</a></li></ul></li><li><a href="TypedefImports.html">TypedefImports</a></li><li><a href="TypeOfTypes.html">TypeOfTypes</a></li></ul><h3><a href="global.html">Global</a></h3>
 </nav>
 
 <div id="main">
@@ -91,9 +91,7 @@
     <section class="readme usertext">
         <article><h1>JSDoc TypeScript utils</h1>
 <p><a href="https://github.com/homer0/jsdoc-ts-utils/actions?query=workflow%3ATest"><img src="https://img.shields.io/github/workflow/status/homer0/jsdoc-ts-utils/Test/main?style=flat-square" alt="GitHub Workflow Status (branch)"></a>
-<a href="https://coveralls.io/github/homer0/jsdoc-ts-utils?branch=main"><img src="https://img.shields.io/coveralls/github/homer0/jsdoc-ts-utils.svg?style=flat-square" alt="Coveralls GitHub"></a>
-<a href="https://david-dm.org/homer0/jsdoc-ts-utils"><img src="https://img.shields.io/david/homer0/jsdoc-ts-utils.svg?style=flat-square" alt="David"></a>
-<a href="https://david-dm.org/homer0/jsdoc-ts-utils"><img src="https://img.shields.io/david/dev/homer0/jsdoc-ts-utils.svg?style=flat-square" alt="David"></a></p>
+<a href="https://coveralls.io/github/homer0/jsdoc-ts-utils?branch=main"><img src="https://img.shields.io/coveralls/github/homer0/jsdoc-ts-utils.svg?style=flat-square" alt="Coveralls GitHub"></a></p>
 <p>A plugin with utilities to make your TypeScript-like docs JSDoc valid</p>
 <h2>Introduction</h2>
 <p>This plugin allows you to take advantage of the <a href="https://www.typescriptlang.org">TypeScript</a> language server on modern IDEs/editors to generate <a href="https://en.wikipedia.org/wiki/Intelligent_code_completion">intelligent code completion</a> using your <a href="https://jsdoc.app">JSDoc</a> comments, and at the same time, be able to generate a documentation site with JSDoc CLI.</p>
@@ -127,6 +125,8 @@
     &quot;modulesOnMemberOf&quot;: true,
     &quot;modulesTypesShortName&quot;: true,
     &quot;parentTag&quot;: true,
+    &quot;removeTaggedBlocks&quot;: true,
+    &quot;removeTags&quot;: true,
     &quot;typeScriptUtilityTypes&quot;: true,
     &quot;tagsReplacement&quot;: {}
   }
@@ -170,6 +170,16 @@
 <td><code>parentTag</code></td>
 <td><code>true</code></td>
 <td>Whether or not to transform all <code>parent</code> tags into <code>memberof</code>.</td>
+</tr>
+<tr>
+<td><code>removeTaggedBlocks</code></td>
+<td><code>true</code></td>
+<td>Whether or not to remove all blocks that have a <code>@jsdoc-remove</code> tag.</td>
+</tr>
+<tr>
+<td><code>removeTags</code></td>
+<td><code>true</code></td>
+<td>Whether or not to remove all tags that follow a <code>@jsdoc-remove-next-tag</code> tag.</td>
 </tr>
 <tr>
 <td><code>typeScriptUtilityTypes</code></td>
@@ -292,6 +302,36 @@
 <p>If you are taking advantage of this feature and using the ESLint plugin, you should add <code>parent</code> to the <code>definedTags</code> option of the <code>jsdoc/check-tag-names</code> rule.</p>
 </blockquote>
 <p>This is enabled by default but you can disable it with the <code>parentTag</code> option.</p>
+<h3>Remove blocks</h3>
+<pre class="prettyprint source lang-js"><code>/**
+ * @typedef {JQuery.AjaxSettings['success']} JQueryOnSuccess
+ * @jsdoc-remove
+ */
+</code></pre>
+<p>Sometimes you have types that could make the site generation fail, and you can't fix them with any of the other features this plugin provides. For those cases, you can use the <code>@jsdoc-remove</code> tag to completely remove the block before it even gets processed by the JSDoc CLI.</p>
+<p>This is enabled by default but you can disable it with the <code>removeTaggedBlocks</code> option.</p>
+<h3>Remove tags</h3>
+<pre class="prettyprint source lang-js"><code>/**
+ * @jsdoc-remove-next-tag
+ * @typedef {JQuery.AjaxSettings['success']} JQueryOnSuccess
+ * @external JQueryOnSuccess
+ * @see <code>http:\\/\\/api.jquery.com/jQuery.ajax/#success</code>
+ */
+</code></pre>
+<p>While the <code>jsdoc-remove</code> tag may be util to get rid of those blocks that breaks the site generation, sometime you just want to remove one single tag, as separating in multiple blocks may make the code hard to read. For those cases, you can use the <code>@jsdoc-remove-next-tag</code> tag, and it will only remove the next tag.</p>
+<p>You can even use it multiple times in a single block:</p>
+<pre class="prettyprint source lang-js"><code>/**
+ * @jsdoc-remove-next-tag
+ * @typedef {JQuery.AjaxSettings['success']} JQueryOnSuccess
+ * @external JQueryOnSuccess
+ * @see <code>http:\\/\\/api.jquery.com/jQuery.ajax/#success</code>
+ * @jsdoc-remove-next-tag
+ * @typedef {JQuery.AjaxSettings['error']} JQueryOnError
+ * @external JQueryOnError
+ * @see <code>http:\\/\\/api.jquery.com/jQuery.ajax/#error</code>
+ */
+</code></pre>
+<p>This is enabled by default but you can disable it with the <code>removeTags</code> option.</p>
 <h3>TypeScript utility types</h3>
 <pre class="prettyprint source lang-js"><code>/**
  * @typedef {Object} Entity
@@ -398,7 +438,7 @@
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a> using a forked <a href="https://github.com/homer0/docdash">docdash</a> theme.
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.11</a> using a forked <a href="https://github.com/homer0/docdash">docdash</a> theme.
 </footer>
 
 <script>prettyPrint();</script>

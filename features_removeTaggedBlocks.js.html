@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8" />
-    <title>TagsReplacement - jsdoc-ts-utils docs</title>
+    <title>features/removeTaggedBlocks.js - jsdoc-ts-utils docs</title>
     
     
     
@@ -64,241 +64,85 @@
 
 <div id="main">
     
-    <h1 class="page-title">TagsReplacement</h1>
+    <h1 class="page-title">features/removeTaggedBlocks.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>
-        TagsReplacement
-        </h2>
-        
-            <div class="class-description usertext"><p>This class allows the replacement of JSDoc tags. For example, it can be used to replace all
-<code>parent</code> tags with <code>memberof</code>.</p></div>
-        
-    
-</header>
-
-<article>
-    
-        <div class="container-overview">
-        
-            
-
-    
-    <h2>Constructor</h2>
-    
-
-    <h4 class="name" id="TagsReplacement"><span class="type-signature"></span>new TagsReplacement<span class="signature">(dictionary, events, EVENT_NAMES)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="features_tagsReplacement.js.html">features/tagsReplacement.js</a>, <a href="features_tagsReplacement.js.html#line10">line 10</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>dictionary</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#TagsReplacementDictionary">TagsReplacementDictionary</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The dictionary of tags that need to
-be replaced.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>events</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a  target="_blank" href="https://nodejs.org/api/events.html">EventEmitter</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>To hook to the even triggered when
-the plugin can do modifications to
-the code.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>EVENT_NAMES</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="global.html#EventNames">EventNames</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>To get the name of the event the
-class needs to listen for.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-        </div>
-    
-
-    
-
-    
-
-    
-    
-    
-
-     
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// @ts-check
+/**
+ * This class removes blocks that use the `jsdoc-remove` tag.
+ */
+class RemoveTaggedBlocks {
+  /**
+   * @param {EventEmitter} events       To hook to the necessary events to parse the code.
+   * @param {EventNames}   EVENT_NAMES  To get the name of the events the class needs to
+   *                                    listen for.
+   */
+  constructor(events, EVENT_NAMES) {
+    /**
+     * The list of comments that use `jsdoc-remove`.
+     *
+     * @type {string[]}
+     * @access protected
+     * @ignore
+     */
+    this._comments = [];
+    // Setup the listeners.
+    events.on(EVENT_NAMES.newComment, this._readComment.bind(this));
+    events.on(EVENT_NAMES.commentsReady, this._replaceComments.bind(this));
+  }
+  /**
+   * This is called every time a new JSDoc comment block is found on a file. It validates
+   * if the block uses `jsdoc-remove` and saves it so it can be parsed later.
+   *
+   * @param {string} comment  The comment to analyze.
+   * @access protected
+   * @ignore
+   */
+  _readComment(comment) {
+    if (comment.match(/\s*\* @jsdoc-remove\s*\*/)) {
+      this._comments.push(comment);
+    }
+  }
+  /**
+   * This is called after all the JSDoc comments block for a file were found and the
+   * plugin is ready to make changes.
+   * The method takes all the comments that were found before and replace them with empty
+   * lines.
+   *
+   * @param {string} source  The code of the file being parsed.
+   * @returns {string}
+   * @access protected
+   * @ignore
+   */
+  _replaceComments(source) {
+    const result = this._comments.reduce(
+      (acc, comment) =>
+        acc.replace(
+          comment,
+          comment
+            .split('\n')
+            .map(() => '')
+            .join('\n'),
+        ),
+      source,
+    );
+
+    this._comments = [];
+    return result;
+  }
+}
+
+module.exports.RemoveTaggedBlocks = RemoveTaggedBlocks;
+</code></pre>
+        </article>
+    </section>
 
 
 
