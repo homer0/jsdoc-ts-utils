@@ -1,19 +1,19 @@
 /**
- * @typedef {import('../src')} Plugin
+ * @typedef {import('../src')}          Plugin
  * @typedef {import('../src/features')} Features
  */
 
 /**
  * @typedef {Object} EventEmitterMock
- * @property {Function} emit      Emits events to the listeners.
- * @property {Function} listeners Gets the listeners for an event.
+ * @property {Function} emit       Emits events to the listeners.
+ * @property {Function} listeners  Gets the listeners for an event.
  */
 
 /**
  * @typedef {Object} LoadedPlugin
- * @property {Plugin}           plugin   The loaded instance of the plugin.
- * @property {Features}         features The dictionary of mocked features.
- * @property {EventEmitterMock} events   The mock for the event emitter.
+ * @property {Plugin}           plugin    The loaded instance of the plugin.
+ * @property {Features}         features  The dictionary of mocked features.
+ * @property {EventEmitterMock} events    The mock for the event emitter.
  */
 
 jest.unmock('../src');
@@ -28,13 +28,14 @@ const { EVENT_NAMES } = require('../src/constants');
 
 describe('plugin', () => {
   /**
-   * Since the JSDoc options are parsed when the modules are loaded, in order for the tests to
-   * validate different configurations, this function will load new instances of the plugin,
+   * Since the JSDoc options are parsed when the modules are loaded, in order for the
+   * tests to validate different configurations, this function will load new instances of
+   * the plugin,
    * the JSDoc env module, the events module and the features.
    *
-   * @param {?Partial<TSUtilsOptions>} options    The custom options for the plugin.
-   * @param {?EventEmitterMock}        eventsMock A custom mock for th event emitter instance.
-   *
+   * @param {?Partial<TSUtilsOptions>} options     The custom options for the plugin.
+   * @param {?EventEmitterMock}        eventsMock  A custom mock for th event emitter
+   *                                               instance.
    * @returns {LoadedPlugin}
    */
   const loadPlugin = (options = null, eventsMock = null) => {
@@ -84,29 +85,19 @@ describe('plugin', () => {
       modulesOnMemberOf: true,
       modulesTypesShortName: true,
       parentTag: true,
+      removeTaggedBlocks: true,
+      removeTags: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: null,
     });
     expect(features.TypedefImports).toHaveBeenCalledTimes(1);
-    expect(features.TypedefImports).toHaveBeenCalledWith(
-      events,
-      EVENT_NAMES,
-    );
+    expect(features.TypedefImports).toHaveBeenCalledWith(events, EVENT_NAMES);
     expect(features.TypeOfTypes).toHaveBeenCalledTimes(1);
-    expect(features.TypeOfTypes).toHaveBeenCalledWith(
-      events,
-      EVENT_NAMES,
-    );
+    expect(features.TypeOfTypes).toHaveBeenCalledWith(events, EVENT_NAMES);
     expect(features.ExtendTypes).toHaveBeenCalledTimes(1);
-    expect(features.ExtendTypes).toHaveBeenCalledWith(
-      events,
-      EVENT_NAMES,
-    );
+    expect(features.ExtendTypes).toHaveBeenCalledWith(events, EVENT_NAMES);
     expect(features.ModulesOnMemberOf).toHaveBeenCalledTimes(1);
-    expect(features.ModulesOnMemberOf).toHaveBeenCalledWith(
-      events,
-      EVENT_NAMES,
-    );
+    expect(features.ModulesOnMemberOf).toHaveBeenCalledWith(events, EVENT_NAMES);
     expect(features.ModulesTypesShortName).toHaveBeenCalledTimes(1);
     expect(features.ModulesTypesShortName).toHaveBeenCalledWith(
       events,
@@ -119,11 +110,12 @@ describe('plugin', () => {
       events,
       EVENT_NAMES,
     );
+    expect(features.RemoveTaggedBlocks).toHaveBeenCalledTimes(1);
+    expect(features.RemoveTaggedBlocks).toHaveBeenCalledWith(events, EVENT_NAMES);
+    expect(features.RemoveTags).toHaveBeenCalledTimes(1);
+    expect(features.RemoveTags).toHaveBeenCalledWith(events, EVENT_NAMES);
     expect(features.TSUtilitiesTypes).toHaveBeenCalledTimes(1);
-    expect(features.TSUtilitiesTypes).toHaveBeenCalledWith(
-      events,
-      EVENT_NAMES,
-    );
+    expect(features.TSUtilitiesTypes).toHaveBeenCalledWith(events, EVENT_NAMES);
   });
 
   it('should be loaded without the typedef imports feature', () => {
@@ -142,6 +134,8 @@ describe('plugin', () => {
       modulesOnMemberOf: true,
       modulesTypesShortName: true,
       parentTag: true,
+      removeTaggedBlocks: true,
+      removeTags: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: null,
     });
@@ -164,6 +158,8 @@ describe('plugin', () => {
       modulesOnMemberOf: true,
       modulesTypesShortName: true,
       parentTag: true,
+      removeTaggedBlocks: true,
+      removeTags: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: null,
     });
@@ -186,6 +182,8 @@ describe('plugin', () => {
       modulesOnMemberOf: true,
       modulesTypesShortName: true,
       parentTag: true,
+      removeTaggedBlocks: true,
+      removeTags: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: null,
     });
@@ -208,6 +206,8 @@ describe('plugin', () => {
       modulesOnMemberOf: false,
       modulesTypesShortName: true,
       parentTag: true,
+      removeTaggedBlocks: true,
+      removeTags: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: null,
     });
@@ -230,6 +230,8 @@ describe('plugin', () => {
       modulesOnMemberOf: true,
       modulesTypesShortName: false,
       parentTag: true,
+      removeTaggedBlocks: true,
+      removeTags: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: null,
     });
@@ -252,10 +254,60 @@ describe('plugin', () => {
       modulesOnMemberOf: true,
       modulesTypesShortName: true,
       parentTag: false,
+      removeTaggedBlocks: true,
+      removeTags: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: null,
     });
     expect(features.TagsReplacement).toHaveBeenCalledTimes(0);
+  });
+
+  it('should be loaded without the remove tagged blocks feature', () => {
+    // Given
+    let sut = null;
+    let features = null;
+    // When
+    ({ plugin: sut, features } = loadPlugin({
+      removeTaggedBlocks: false,
+    }));
+    // Then
+    expect(sut.options).toEqual({
+      typedefImports: true,
+      typeOfTypes: true,
+      extendTypes: true,
+      modulesOnMemberOf: true,
+      modulesTypesShortName: true,
+      parentTag: true,
+      removeTaggedBlocks: false,
+      removeTags: true,
+      typeScriptUtilityTypes: true,
+      tagsReplacement: null,
+    });
+    expect(features.RemoveTaggedBlocks).toHaveBeenCalledTimes(0);
+  });
+
+  it('should be loaded without the remove tags feature', () => {
+    // Given
+    let sut = null;
+    let features = null;
+    // When
+    ({ plugin: sut, features } = loadPlugin({
+      removeTags: false,
+    }));
+    // Then
+    expect(sut.options).toEqual({
+      typedefImports: true,
+      typeOfTypes: true,
+      extendTypes: true,
+      modulesOnMemberOf: true,
+      modulesTypesShortName: true,
+      parentTag: true,
+      removeTaggedBlocks: true,
+      removeTags: false,
+      typeScriptUtilityTypes: true,
+      tagsReplacement: null,
+    });
+    expect(features.RemoveTags).toHaveBeenCalledTimes(0);
   });
 
   it('should be loaded without the TS utility types feature', () => {
@@ -274,6 +326,8 @@ describe('plugin', () => {
       modulesOnMemberOf: true,
       modulesTypesShortName: true,
       parentTag: true,
+      removeTaggedBlocks: true,
+      removeTags: true,
       typeScriptUtilityTypes: false,
       tagsReplacement: null,
     });
@@ -289,7 +343,11 @@ describe('plugin', () => {
     let features = null;
     let events = null;
     // When
-    ({ plugin: sut, features, events } = loadPlugin({
+    ({
+      plugin: sut,
+      features,
+      events,
+    } = loadPlugin({
       tagsReplacement: dictionary,
     }));
     // Then
@@ -304,6 +362,8 @@ describe('plugin', () => {
       modulesOnMemberOf: true,
       modulesTypesShortName: true,
       parentTag: true,
+      removeTaggedBlocks: true,
+      removeTags: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: dictionary,
     });
@@ -334,10 +394,7 @@ describe('plugin', () => {
     sut.handlers.parseBegin(event);
     // Then
     expect(events.emit).toHaveBeenCalledTimes(1);
-    expect(events.emit).toHaveBeenCalledWith(
-      EVENT_NAMES.parseBegin,
-      event,
-    );
+    expect(events.emit).toHaveBeenCalledWith(EVENT_NAMES.parseBegin, event);
   });
 
   it('should reduce the contents of a file using the beforeParse event', () => {
@@ -349,7 +406,7 @@ describe('plugin', () => {
       ' * @typedef {Daughter} Pilar',
       ' */',
     ].join('\n');
-    const contents = 'const hello = () => \'world\';';
+    const contents = "const hello = () => 'world';";
     const source = `${comment}${contents}`;
     const filename = 'daughters.js';
     const firstListenerResult = 1;
@@ -371,16 +428,42 @@ describe('plugin', () => {
     // Then
     expect(event.source).toEqual(secondListenerResult);
     expect(events.emit).toHaveBeenCalledTimes(1);
-    expect(events.emit).toHaveBeenCalledWith(
-      EVENT_NAMES.newComment,
-      comment,
-      filename,
-    );
+    expect(events.emit).toHaveBeenCalledWith(EVENT_NAMES.newComment, comment, filename);
     expect(events.listeners).toHaveBeenCalledTimes(1);
     expect(events.listeners).toHaveBeenCalledWith(EVENT_NAMES.commentsReady);
     expect(firstListener).toHaveBeenCalledTimes(1);
     expect(firstListener).toHaveBeenCalledWith(source, filename);
     expect(secondListener).toHaveBeenCalledTimes(1);
     expect(secondListener).toHaveBeenCalledWith(firstListenerResult, filename);
+  });
+
+  it('should ignore comments with the @ignore tag', () => {
+    // Given
+    const comment = [
+      '/**',
+      ' * @typedef {import("family").Daughter} Daughter',
+      ' * @typedef {Daughter} Rosario',
+      ' * @typedef {Daughter} Pilar',
+      ' * @ignore',
+      ' */',
+    ].join('\n');
+    const contents = "const hello = () => 'world';";
+    const source = `${comment}${contents}`;
+    const filename = 'daughters.js';
+    const listener = jest.fn();
+    const events = {
+      emit: jest.fn(),
+      listeners: jest.fn(() => [listener]),
+    };
+    const event = {
+      source,
+      filename,
+    };
+    let sut = null;
+    // When
+    ({ plugin: sut } = loadPlugin(null, events));
+    sut.handlers.beforeParse(event);
+    // Then
+    expect(events.emit).toHaveBeenCalledTimes(0);
   });
 });

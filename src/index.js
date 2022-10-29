@@ -21,11 +21,13 @@ const features = require('./features');
  * @ignore
  */
 const traverseComments = (source, fn) => {
-  const regex = /\/\*\*\s*\n(?:[^\*]|\*[^\/])*\*\//g;
+  const regex = /\/\*\*\s*(?:[^\*]|\*[^\/])*\*\//g;
   let match = regex.exec(source);
   while (match) {
     const [comment] = match;
-    fn(comment);
+    if (!comment.match(/\s*\* @ignore\s*\*/i)) {
+      fn(comment);
+    }
     match = regex.exec(source);
   }
 };
@@ -43,6 +45,8 @@ const options = {
   modulesOnMemberOf: true,
   modulesTypesShortName: true,
   parentTag: true,
+  removeTaggedBlocks: true,
+  removeTags: true,
   typeScriptUtilityTypes: true,
   tagsReplacement: null,
   ...(jsdocEnv.conf.tsUtils || {}),
@@ -55,6 +59,14 @@ const options = {
 const events = new EventEmitter();
 
 // Load the features..
+if (options.removeTaggedBlocks) {
+  new features.RemoveTaggedBlocks(events, EVENT_NAMES);
+}
+
+if (options.removeTags) {
+  new features.RemoveTags(events, EVENT_NAMES);
+}
+
 if (options.typedefImports) {
   new features.TypedefImports(events, EVENT_NAMES);
 }
