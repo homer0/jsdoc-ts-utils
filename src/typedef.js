@@ -35,6 +35,12 @@
  * @property {boolean} extendTypes
  * Whether or not to enable the feature that allows intersections to be reformatted.
  * Default `true`.
+ * @property {boolean} removeTaggedBlocks
+ * Whether or not to enable the feature that removes blocks that use the `@jsdoc-remove`
+ * tag.
+ * @property {boolean} removeTags
+ * Whether or not to enable the feature that removes tags that follow a
+ * `@jsdoc-remove-next-tag` tag.
  * @property {boolean} modulesOnMemberOf
  * Whether or not to enable the feature that fixes modules' paths on `memeberof` so they
  * can use dot notation. Default `true`.

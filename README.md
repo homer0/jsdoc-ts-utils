@@ -2,8 +2,6 @@
 
 [![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/homer0/jsdoc-ts-utils/Test/main?style=flat-square)](https://github.com/homer0/jsdoc-ts-utils/actions?query=workflow%3ATest)
 [![Coveralls GitHub](https://img.shields.io/coveralls/github/homer0/jsdoc-ts-utils.svg?style=flat-square)](https://coveralls.io/github/homer0/jsdoc-ts-utils?branch=main)
-[![David](https://img.shields.io/david/homer0/jsdoc-ts-utils.svg?style=flat-square)](https://david-dm.org/homer0/jsdoc-ts-utils)
-[![David](https://img.shields.io/david/dev/homer0/jsdoc-ts-utils.svg?style=flat-square)](https://david-dm.org/homer0/jsdoc-ts-utils)
 
 A plugin with utilities to make your TypeScript-like docs JSDoc valid
 
@@ -49,6 +47,8 @@ Since JSDoc doesn't allow to add configuration options on the `plugins` list, if
     "modulesOnMemberOf": true,
     "modulesTypesShortName": true,
     "parentTag": true,
+    "removeTaggedBlocks": true,
+    "removeTags": true,
     "typeScriptUtilityTypes": true,
     "tagsReplacement": {}
   }
@@ -63,6 +63,8 @@ Since JSDoc doesn't allow to add configuration options on the `plugins` list, if
 | `modulesOnMemberOf` | `true` | Whether or not to enable the feature that fixes modules' paths on `memeberof` so they can use dot notation. |
 | `modulesTypesShortName` | `true` | Whether or not to register modules types without the module path too. |
 | `parentTag` | `true` | Whether or not to transform all `parent` tags into `memberof`. |
+| `removeTaggedBlocks` | `true` | Whether or not to remove all blocks that have a `@jsdoc-remove` tag. |
+| `removeTags` | `true` | Whether or not to remove all tags that follow a `@jsdoc-remove-next-tag` tag. |
 | `typeScriptUtilityTypes` | `true` | Whether or not to add the external utility types from TypeScript. |
 | `tagsReplacement` | `null` | A dictionary of tags to replace, they keys are the tags being used and the values the tag that should be used. |
 
@@ -220,6 +222,49 @@ This feature is simply an alias for `@memberof`: you put whatever you want in th
 > If you are taking advantage of this feature and using the ESLint plugin, you should add `parent` to the `definedTags` option of the `jsdoc/check-tag-names` rule.
 
 This is enabled by default but you can disable it with the `parentTag` option.
+
+### Remove blocks
+
+```js
+/**
+ * @typedef {JQuery.AjaxSettings['success']} JQueryOnSuccess
+ * @jsdoc-remove
+ */
+```
+
+Sometimes you have types that could make the site generation fail, and you can't fix them with any of the other features this plugin provides. For those cases, you can use the `@jsdoc-remove` tag to completely remove the block before it even gets processed by the JSDoc CLI.
+
+This is enabled by default but you can disable it with the `removeTaggedBlocks` option.
+
+### Remove tags
+
+```js
+/**
+ * @jsdoc-remove-next-tag
+ * @typedef {JQuery.AjaxSettings['success']} JQueryOnSuccess
+ * @external JQueryOnSuccess
+ * @see {@link http://api.jquery.com/jQuery.ajax/#success}
+ */
+```
+
+While the `jsdoc-remove` tag may be util to get rid of those blocks that breaks the site generation, sometime you just want to remove one single tag, as separating in multiple blocks may make the code hard to read. For those cases, you can use the `@jsdoc-remove-next-tag` tag, and it will only remove the next tag.
+
+You can even use it multiple times in a single block:
+
+```js
+/**
+ * @jsdoc-remove-next-tag
+ * @typedef {JQuery.AjaxSettings['success']} JQueryOnSuccess
+ * @external JQueryOnSuccess
+ * @see {@link http://api.jquery.com/jQuery.ajax/#success}
+ * @jsdoc-remove-next-tag
+ * @typedef {JQuery.AjaxSettings['error']} JQueryOnError
+ * @external JQueryOnError
+ * @see {@link http://api.jquery.com/jQuery.ajax/#error}
+ */
+```
+
+This is enabled by default but you can disable it with the `removeTags` option.
 
 ### TypeScript utility types
 

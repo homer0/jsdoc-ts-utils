@@ -1,4 +1,3 @@
-// @ts-check
 /**
  * @typedef {Object} ExtendTypesCommentWithProperties
  * @property {string}   name        The name of the type.
@@ -72,6 +71,7 @@ class ExtendTypes {
         ),
       )
       .filter((comment) => comment);
+
     return comments.length === 1 ? comments[0] : null;
   }
   /**
