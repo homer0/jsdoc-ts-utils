@@ -86,6 +86,7 @@ describe('plugin', () => {
       modulesTypesShortName: true,
       parentTag: true,
       removeTaggedBlocks: true,
+      removeTags: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: null,
     });
@@ -111,6 +112,8 @@ describe('plugin', () => {
     );
     expect(features.RemoveTaggedBlocks).toHaveBeenCalledTimes(1);
     expect(features.RemoveTaggedBlocks).toHaveBeenCalledWith(events, EVENT_NAMES);
+    expect(features.RemoveTags).toHaveBeenCalledTimes(1);
+    expect(features.RemoveTags).toHaveBeenCalledWith(events, EVENT_NAMES);
     expect(features.TSUtilitiesTypes).toHaveBeenCalledTimes(1);
     expect(features.TSUtilitiesTypes).toHaveBeenCalledWith(events, EVENT_NAMES);
   });
@@ -132,6 +135,7 @@ describe('plugin', () => {
       modulesTypesShortName: true,
       parentTag: true,
       removeTaggedBlocks: true,
+      removeTags: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: null,
     });
@@ -155,6 +159,7 @@ describe('plugin', () => {
       modulesTypesShortName: true,
       parentTag: true,
       removeTaggedBlocks: true,
+      removeTags: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: null,
     });
@@ -178,6 +183,7 @@ describe('plugin', () => {
       modulesTypesShortName: true,
       parentTag: true,
       removeTaggedBlocks: true,
+      removeTags: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: null,
     });
@@ -201,6 +207,7 @@ describe('plugin', () => {
       modulesTypesShortName: true,
       parentTag: true,
       removeTaggedBlocks: true,
+      removeTags: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: null,
     });
@@ -224,6 +231,7 @@ describe('plugin', () => {
       modulesTypesShortName: false,
       parentTag: true,
       removeTaggedBlocks: true,
+      removeTags: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: null,
     });
@@ -247,6 +255,7 @@ describe('plugin', () => {
       modulesTypesShortName: true,
       parentTag: false,
       removeTaggedBlocks: true,
+      removeTags: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: null,
     });
@@ -270,10 +279,35 @@ describe('plugin', () => {
       modulesTypesShortName: true,
       parentTag: true,
       removeTaggedBlocks: false,
+      removeTags: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: null,
     });
     expect(features.RemoveTaggedBlocks).toHaveBeenCalledTimes(0);
+  });
+
+  it('should be loaded without the remove tags feature', () => {
+    // Given
+    let sut = null;
+    let features = null;
+    // When
+    ({ plugin: sut, features } = loadPlugin({
+      removeTags: false,
+    }));
+    // Then
+    expect(sut.options).toEqual({
+      typedefImports: true,
+      typeOfTypes: true,
+      extendTypes: true,
+      modulesOnMemberOf: true,
+      modulesTypesShortName: true,
+      parentTag: true,
+      removeTaggedBlocks: true,
+      removeTags: false,
+      typeScriptUtilityTypes: true,
+      tagsReplacement: null,
+    });
+    expect(features.RemoveTags).toHaveBeenCalledTimes(0);
   });
 
   it('should be loaded without the TS utility types feature', () => {
@@ -293,6 +327,7 @@ describe('plugin', () => {
       modulesTypesShortName: true,
       parentTag: true,
       removeTaggedBlocks: true,
+      removeTags: true,
       typeScriptUtilityTypes: false,
       tagsReplacement: null,
     });
@@ -328,6 +363,7 @@ describe('plugin', () => {
       modulesTypesShortName: true,
       parentTag: true,
       removeTaggedBlocks: true,
+      removeTags: true,
       typeScriptUtilityTypes: true,
       tagsReplacement: dictionary,
     });
