@@ -37,9 +37,8 @@ class RemoveTaggedBlocks {
   /**
    * This is called after all the JSDoc comments block for a file were found and the
    * plugin is ready to make changes.
-   * The method takes all the comments that were found before and, if the comment includes
-   * an `external` statement, it just replaces the `typedef` line with an empty one; but
-   * if it doesn't, it gets replaced with empty lines.
+   * The method takes all the comments that were found before and replace them with empty
+   * lines.
    *
    * @param {string} source  The code of the file being parsed.
    * @returns {string}
