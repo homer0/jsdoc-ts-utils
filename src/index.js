@@ -25,7 +25,9 @@ const traverseComments = (source, fn) => {
   let match = regex.exec(source);
   while (match) {
     const [comment] = match;
-    fn(comment);
+    if (!comment.match(/\s*\* @ignore\s*\*/i)) {
+      fn(comment);
+    }
     match = regex.exec(source);
   }
 };
