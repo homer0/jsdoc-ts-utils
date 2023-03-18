@@ -13,7 +13,7 @@ The reason this plugin exists is that JSDoc comments as specified by its _conven
 
 The plugin counts with a few (toggleable) features you can use to write code valid for TypeScript that will also be valid for the JSDoc CLI.
 
-There are also a few features that are designed to make the code compatible with the [ESLint plugin for JSDoc](https://yarnpkg.com/package/eslint-plugin-jsdoc), highly recommended if you are getting serious with JSDoc.
+There are also a few features that are designed to make the code compatible with the [ESLint plugin for JSDoc](https://npmjs.com/package/eslint-plugin-jsdoc), highly recommended if you are getting serious with JSDoc.
 
 ## Configuration
 
@@ -88,7 +88,7 @@ In case you want to import the type but show it as an external on the site, beca
 /**
  * @typedef {import('family/daughters').Pilar} Pilar
  * @external Pilar
- * @see https://yarnpkg.com/package/family
+ * @see https://npmjs.com/package/family
  */
 ```
 
@@ -323,7 +323,7 @@ No modification to the `tagsReplacement` option will affect the `@parent` tag fe
 
 ## Development
 
-### NPM/Yarn tasks
+### Scripts
 
 | Task       | Description                          |
 |------------|--------------------------------------|
@@ -335,7 +335,7 @@ No modification to the `tagsReplacement` option will affect the `@parent` tag fe
 
 ### Repository hooks
 
-I use [`husky`](https://yarnpkg.com/package/husky) to automatically install the repository hooks so the code will be tested and linted before any commit, and the dependencies updated after every merge.
+I use [`husky`](https://npmjs.com/package/husky) to automatically install the repository hooks so the code will be tested and linted before any commit, and the dependencies updated after every merge.
 
 #### Commits convention
 
@@ -345,7 +345,7 @@ The configuration is on the `commitlint` property of the `package.json`.
 
 ### Releases
 
-I use [`semantic-release`](https://yarnpkg.com/package/semantic-release) and a GitHub action to automatically release on NPM everything that gets merged to main.
+I use [`semantic-release`](https://npmjs.com/package/semantic-release) and a GitHub action to automatically release on NPM everything that gets merged to main.
 
 The configuration for `semantic-release` is on `./releaserc` and the workflow for the release is on `./.github/workflow/release.yml`.
 
@@ -357,9 +357,9 @@ The configuration file is on `./.jestrc.js`, the tests are on `./tests` and the 
 
 ### Linting && Formatting
 
-I use [ESlint](https://eslint.org) with [my own custom configuration](https://yarnpkg.com/en/package/@homer0/eslint-plugin) to validate all the JS code. The configuration file for the project code is on `./.eslintrc` and the one for the tests is on `./tests/.eslintrc`. There's also an `./.eslintignore` to exclude some files on the process. The script that runs it is on `./utils/scripts/lint-all`.
+I use [ESlint](https://eslint.org) with [my own custom configuration](https://npmjs.com/package/@homer0/eslint-plugin) to validate all the JS code. The configuration file for the project code is on `./.eslintrc` and the one for the tests is on `./tests/.eslintrc`. There's also an `./.eslintignore` to exclude some files on the process. The script that runs it is on `./utils/scripts/lint-all`.
 
-For formatting I use [Prettier](https://prettier.io) with [my custom configuration](https://yarnpkg.com/en/package/@homer0/prettier-config). The configuration file for the project code is on `./.prettierrc`.
+For formatting I use [Prettier](https://prettier.io) with [my custom configuration](https://npmjs.com/package/@homer0/prettier-config). The configuration file for the project code is on `./.prettierrc`.
 
 ### Documentation
 
@@ -369,6 +369,6 @@ The configuration file is on `./.jsdoc.js` and the script that runs it is on `./
 
 ### To-Dos
 
-I use `@todo` comments to write all the pending improvements and fixes, and [Leasot](https://yarnpkg.com/package/leasot) to generate a report.
+I use `@todo` comments to write all the pending improvements and fixes, and [Leasot](https://npmjs.com/package/leasot) to generate a report.
 
 The script that runs it is on `./utils/scripts/todo`.
