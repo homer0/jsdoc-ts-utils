@@ -1,3 +1,16 @@
+# [4.0.0](https://github.com/homer0/jsdoc-ts-utils/compare/3.1.0...4.0.0) (2023-03-18)
+
+
+### Bug Fixes
+
+* make Node 16 the min required version ([b07e627](https://github.com/homer0/jsdoc-ts-utils/commit/b07e627d9ff41a2230b3211c1dcf568ed98b2c04))
+* update dependencies ([5525330](https://github.com/homer0/jsdoc-ts-utils/commit/5525330d0ec3eda6f8c2cf20944c1832bdf5f269))
+
+
+### BREAKING CHANGES
+
+* This package now requires Node 16 or above
+
 # [3.1.0](https://github.com/homer0/jsdoc-ts-utils/compare/3.0.0...3.1.0) (2022-10-29)
 
 
