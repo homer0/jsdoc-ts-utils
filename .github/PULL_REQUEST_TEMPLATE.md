@@ -3,8 +3,6 @@
 ### How should it be tested manually?
 
 ```bash
-yarn test
-# or
 npm test
 ```
 
