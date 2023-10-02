@@ -1,7 +1,8 @@
 # JSDoc TypeScript utils
 
-[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/homer0/jsdoc-ts-utils/Test/main?style=flat-square)](https://github.com/homer0/jsdoc-ts-utils/actions?query=workflow%3ATest)
+[![GitHub Workflow Status (main)](https://img.shields.io/github/actions/workflow/status/homer0/jsdoc-ts-utils/test.yml?branch=main&style=flat-square)](https://github.com/homer0/jsdoc-ts-utils/actions/workflows/test.yml?query=branch%3Amain)
 [![Coveralls GitHub](https://img.shields.io/coveralls/github/homer0/jsdoc-ts-utils.svg?style=flat-square)](https://coveralls.io/github/homer0/jsdoc-ts-utils?branch=main)
+![Libraries.io dependency status for latest release](https://img.shields.io/librariesio/release/npm/jsdoc-ts-utils?style=flat-square)
 
 A plugin with utilities to make your TypeScript-like docs JSDoc valid
 
