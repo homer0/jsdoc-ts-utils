@@ -1,3 +1,15 @@
+# [5.0.0](https://github.com/homer0/jsdoc-ts-utils/compare/4.0.0...5.0.0) (2023-10-02)
+
+
+### Bug Fixes
+
+* drop Node 16 support ([b66b825](https://github.com/homer0/jsdoc-ts-utils/commit/b66b8257b733aa3990d00a6f90703cf700ae8049))
+
+
+### BREAKING CHANGES
+
+* Node 16 is not longer supported. Node 18.17 is the minimum required version now.
+
 # [4.0.0](https://github.com/homer0/jsdoc-ts-utils/compare/3.1.0...4.0.0) (2023-03-18)
 
 
