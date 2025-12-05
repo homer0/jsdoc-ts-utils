@@ -40,20 +40,20 @@ describe('plugin', () => {
    */
   const loadPlugin = (options = null, eventsMock = null) => {
     if (options) {
-      // eslint-disable-next-line global-require
+      // eslint-disable-next-line n/global-require
       const jsdocEnv = require('jsdoc/lib/jsdoc/env');
       jsdocEnv.conf.tsUtils = options;
     }
-    // eslint-disable-next-line global-require
+    // eslint-disable-next-line n/global-require
     const { EventEmitter } = require('events');
     const events = eventsMock || {
       emit: jest.fn(),
       listeners: jest.fn(),
     };
     EventEmitter.mockImplementationOnce(() => events);
-    // eslint-disable-next-line global-require
+    // eslint-disable-next-line n/global-require
     const plugin = require('../src');
-    // eslint-disable-next-line global-require
+    // eslint-disable-next-line n/global-require
     const features = require('../src/features');
     return {
       plugin,

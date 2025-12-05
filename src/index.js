@@ -99,7 +99,7 @@ if (options.tagsReplacement && Object.keys(options.tagsReplacement).length) {
   new features.TagsReplacement(options.tagsReplacement, events, EVENT_NAMES);
 }
 /**
- * Export all the loaded optiones.
+ * Export all the loaded options.
  *
  * @type {TSUtilsOptions}
  * @ignore

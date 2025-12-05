@@ -82,14 +82,17 @@ describe('features:tsUtilityTypes', () => {
     expect(sut).toBeInstanceOf(TSUtilitiesTypes);
     expect(events.on).toHaveBeenCalledTimes(2);
     expect(events.on).toHaveBeenCalledWith(EVENT_NAMES.parseBegin, expect.any(Function));
-    expect(events.on).toHaveBeenCalledWith(EVENT_NAMES.commentsReady, expect.any(Function));
+    expect(events.on).toHaveBeenCalledWith(
+      EVENT_NAMES.commentsReady,
+      expect.any(Function),
+    );
   });
 
   it('should add the types on a typedef.js file', () => {
     // Given
     const otherFile = {
       path: 'some/other/path/index.js',
-      contents: 'throw new Error(\'we are doomed\');',
+      contents: "throw new Error('we are doomed');",
     };
     const typedefFile = {
       path: 'some/path/typedef.js',
@@ -109,10 +112,7 @@ describe('features:tsUtilityTypes', () => {
     onParseBegin({
       sourcefiles: files.map((file) => file.path),
     });
-    results = files.map((file) => onCommentsReady(
-      file.contents,
-      file.path,
-    ));
+    results = files.map((file) => onCommentsReady(file.contents, file.path));
     // Then
     expect(sut).toBeInstanceOf(TSUtilitiesTypes);
     expect(results).toEqual([
@@ -121,7 +121,7 @@ describe('features:tsUtilityTypes', () => {
     ]);
   });
 
-  it('should add the types on the first file if there\'s no typedef.js', () => {
+  it("should add the types on the first file if there's no typedef.js", () => {
     // Given
     const typedefFile = {
       path: 'some/path/index.js',
@@ -129,7 +129,7 @@ describe('features:tsUtilityTypes', () => {
     };
     const otherFile = {
       path: 'some/other/path/index.js',
-      contents: 'throw new Error(\'we are doomed\');',
+      contents: "throw new Error('we are doomed');",
     };
     const files = [typedefFile, otherFile];
     const events = {
@@ -145,10 +145,7 @@ describe('features:tsUtilityTypes', () => {
     onParseBegin({
       sourcefiles: files.map((file) => file.path),
     });
-    results = files.map((file) => onCommentsReady(
-      file.contents,
-      file.path,
-    ));
+    results = files.map((file) => onCommentsReady(file.contents, file.path));
     // Then
     expect(sut).toBeInstanceOf(TSUtilitiesTypes);
     expect(results).toEqual([

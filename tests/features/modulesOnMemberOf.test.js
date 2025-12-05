@@ -14,10 +14,13 @@ describe('features:modulesOnMemberOf', () => {
     // Then
     expect(sut).toBeInstanceOf(ModulesOnMemberOf);
     expect(events.on).toHaveBeenCalledTimes(1);
-    expect(events.on).toHaveBeenCalledWith(EVENT_NAMES.commentsReady, expect.any(Function));
+    expect(events.on).toHaveBeenCalledWith(
+      EVENT_NAMES.commentsReady,
+      expect.any(Function),
+    );
   });
 
-  it('should fix the modules\' paths on memberof tags that use dot notation', () => {
+  it("should fix the modules' paths on memberof tags that use dot notation", () => {
     // Given
     const fixture = [
       {
@@ -45,11 +48,9 @@ describe('features:modulesOnMemberOf', () => {
         expected: '@memberof! module.exports',
       },
     ];
-    const [comment, expected] = ['comment', 'expected'].map((type) => [
-      '/**',
-      ...fixture.map((item) => ` * ${item[type]}`),
-      ' */',
-    ].join('\n'));
+    const [comment, expected] = ['comment', 'expected'].map((type) =>
+      ['/**', ...fixture.map((item) => ` * ${item[type]}`), ' */'].join('\n'),
+    );
     const events = {
       on: jest.fn(),
     };

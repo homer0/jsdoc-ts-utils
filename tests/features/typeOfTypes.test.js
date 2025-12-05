@@ -15,10 +15,13 @@ describe('features:typeOfTypes', () => {
     expect(sut).toBeInstanceOf(TypeOfTypes);
     expect(events.on).toHaveBeenCalledTimes(2);
     expect(events.on).toHaveBeenCalledWith(EVENT_NAMES.newComment, expect.any(Function));
-    expect(events.on).toHaveBeenCalledWith(EVENT_NAMES.commentsReady, expect.any(Function));
+    expect(events.on).toHaveBeenCalledWith(
+      EVENT_NAMES.commentsReady,
+      expect.any(Function),
+    );
   });
 
-  it('should ignore a comment that doesn\'t have a typedef with typeof', () => {
+  it("should ignore a comment that doesn't have a typedef with typeof", () => {
     // Given
     const comment = [
       '/**',
@@ -54,12 +57,9 @@ describe('features:typeOfTypes', () => {
       ' * @typedef {Daughter} Pilar',
       ' */',
     ];
-    const comment = [
-      ...commentLinesStart,
-      commentLineTypeOf,
-      ...commentLinesEnd,
-    ]
-    .join('\n');
+    const comment = [...commentLinesStart, commentLineTypeOf, ...commentLinesEnd].join(
+      '\n',
+    );
     const content = ' Some other code';
     const source = `${comment}${content}`;
     const events = {
@@ -72,8 +72,7 @@ describe('features:typeOfTypes', () => {
       ...commentLinesStart,
       ` * @typedef {Class.<${type}>} DaughterConstructor`,
       ...commentLinesEnd,
-    ]
-    .join('\n');
+    ].join('\n');
     let result = null;
     // When
     sut = new TypeOfTypes(events, EVENT_NAMES);
@@ -97,19 +96,15 @@ describe('features:typeOfTypes', () => {
       ' * @returns {string}',
       ' */',
     ];
-    const comment = [
-      ...commentLinesStart,
-      commentLineTypeOf,
-      ...commentLinesEnd,
-    ]
-    .join('\n');
+    const comment = [...commentLinesStart, commentLineTypeOf, ...commentLinesEnd].join(
+      '\n',
+    );
     const content = [
       '',
       'function doSometing(DaughterConstructor, Rosario, Pilar) {',
-      ' return \'something\';',
+      " return 'something';",
       '}',
-    ]
-    .join('\n');
+    ].join('\n');
     const source = `${comment}${content}`;
     const events = {
       on: jest.fn(),
@@ -121,8 +116,7 @@ describe('features:typeOfTypes', () => {
       ...commentLinesStart,
       ` * @param {Class.<${type}>} DaughterConstructor ${paramDescription}`,
       ...commentLinesEnd,
-    ]
-    .join('\n');
+    ].join('\n');
     let result = null;
     // When
     sut = new TypeOfTypes(events, EVENT_NAMES);

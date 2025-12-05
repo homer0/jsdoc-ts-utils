@@ -15,7 +15,10 @@ describe('features:tagsReplacement', () => {
     // Then
     expect(sut).toBeInstanceOf(TagsReplacement);
     expect(events.on).toHaveBeenCalledTimes(1);
-    expect(events.on).toHaveBeenCalledWith(EVENT_NAMES.commentsReady, expect.any(Function));
+    expect(events.on).toHaveBeenCalledWith(
+      EVENT_NAMES.commentsReady,
+      expect.any(Function),
+    );
   });
 
   it('should replace a dictionary of tags on a file', () => {
@@ -32,18 +35,18 @@ describe('features:tagsReplacement', () => {
         comment: 'SomeType',
       },
     ];
-    const [comment, expected] = ['original', 'replacement'].map((type) => [
-      '/**',
-      ...fixture.map((item) => ` * @${item[type]} ${item.comment}`),
-      ' */',
-    ].join('\n'));
+    const [comment, expected] = ['original', 'replacement'].map((type) =>
+      ['/**', ...fixture.map((item) => ` * @${item[type]} ${item.comment}`), ' */'].join(
+        '\n',
+      ),
+    );
     const extraContent = [
       'Some text with @parent in the middle',
       'or a single line /* @extends Woo */',
       '/**',
       ' * @type {string}',
       ' */',
-      'const toTestAnotherBlock = \'\';',
+      "const toTestAnotherBlock = '';",
     ].join('\n');
     const dictionary = fixture.reduce(
       (acc, item) => ({ ...acc, [item.original]: item.replacement }),

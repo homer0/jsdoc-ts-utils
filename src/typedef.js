@@ -10,14 +10,12 @@
  * @see https://github.com/jsdoc/jsdoc/blob/3.5.5/lib/jsdoc/util/templateHelper.js
  */
 
-/* eslint-disable jsdoc/valid-types, max-len */
 /**
  * @typedef {import('jsdoc/lib/jsdoc/util/templateHelper')['registerLink']}
  * JSDocTemplateHelperRegisterLink
  *
  * @prettierignore
  */
-/* eslint-enable jsdoc/valid-types */
 
 /**
  * @typedef {import('./constants').EventNames} EventNames
