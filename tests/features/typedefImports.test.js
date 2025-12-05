@@ -15,10 +15,13 @@ describe('features:typedefImports', () => {
     expect(sut).toBeInstanceOf(TypedefImports);
     expect(events.on).toHaveBeenCalledTimes(2);
     expect(events.on).toHaveBeenCalledWith(EVENT_NAMES.newComment, expect.any(Function));
-    expect(events.on).toHaveBeenCalledWith(EVENT_NAMES.commentsReady, expect.any(Function));
+    expect(events.on).toHaveBeenCalledWith(
+      EVENT_NAMES.commentsReady,
+      expect.any(Function),
+    );
   });
 
-  it('should ignore a comment that doesn\'t have a typedef import', () => {
+  it("should ignore a comment that doesn't have a typedef import", () => {
     // Given
     const comment = [
       '/**',
@@ -74,7 +77,7 @@ describe('features:typedefImports', () => {
     expect(result).toBe(`${emptyBlock}${content}`);
   });
 
-  it('shouldn\'t remove the block if theres an @external tag', () => {
+  it("shouldn't remove the block if theres an @external tag", () => {
     // Given
     const commentLinesStart = ['/**'];
     const commentLinesImport = [' * @typedef {import("family").Daughter} Daughter'];
@@ -89,8 +92,7 @@ describe('features:typedefImports', () => {
       ...commentLinesStart,
       ...commentLinesImport,
       ...commentLinesEnd,
-    ]
-    .join('\n');
+    ].join('\n');
     const content = ' Some other code';
     const source = `${comment}${content}`;
     const events = {
@@ -103,8 +105,7 @@ describe('features:typedefImports', () => {
       ...commentLinesStart,
       ...commentLinesImport.map(() => ' * '),
       ...commentLinesEnd,
-    ]
-    .join('\n');
+    ].join('\n');
     let result = null;
     // When
     sut = new TypedefImports(events, EVENT_NAMES);

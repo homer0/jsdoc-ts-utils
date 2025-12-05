@@ -15,10 +15,13 @@ describe('features:extendTypes', () => {
     expect(sut).toBeInstanceOf(ExtendTypes);
     expect(events.on).toHaveBeenCalledTimes(2);
     expect(events.on).toHaveBeenCalledWith(EVENT_NAMES.newComment, expect.any(Function));
-    expect(events.on).toHaveBeenCalledWith(EVENT_NAMES.commentsReady, expect.any(Function));
+    expect(events.on).toHaveBeenCalledWith(
+      EVENT_NAMES.commentsReady,
+      expect.any(Function),
+    );
   });
 
-  it('should ignore comments that don\'t extend types nor use intersection', () => {
+  it("should ignore comments that don't extend types nor use intersection", () => {
     // Given
     const comment = [
       '/**',
@@ -80,9 +83,7 @@ describe('features:extendTypes', () => {
 
   it('should transform an intersection into an extension', () => {
     // Given
-    const sharedLines = [
-      ' * @memberof module:people',
-    ];
+    const sharedLines = [' * @memberof module:people'];
     const extendedProperiesLines = [
       ' * @property {number} name',
       ' * @property {number} age',
@@ -106,11 +107,7 @@ describe('features:extendTypes', () => {
     ];
     const propertiesComment = propertiesLines.join('\n');
     const content = 'Some other code';
-    const source = [
-      comment,
-      propertiesComment,
-      content,
-    ].join('\n');
+    const source = [comment, propertiesComment, content].join('\n');
     const events = {
       on: jest.fn(),
     };
@@ -126,13 +123,9 @@ describe('features:extendTypes', () => {
       ' */',
     ].join('\n');
     const emptyBlock = new Array(propertiesLines.length - extendedProperiesLines.length)
-    .fill('')
-    .join('\n');
-    const expectedResult = [
-      newComment,
-      emptyBlock,
-      content,
-    ].join('\n');
+      .fill('')
+      .join('\n');
+    const expectedResult = [newComment, emptyBlock, content].join('\n');
     // When
     sut = new ExtendTypes(events, EVENT_NAMES);
     [[, onComment], [, onCommentsReady]] = events.on.mock.calls;
@@ -146,9 +139,7 @@ describe('features:extendTypes', () => {
 
   it('should transform an intersection (multiline) into an extension', () => {
     // Given
-    const sharedLines = [
-      ' * @memberof module:people',
-    ];
+    const sharedLines = [' * @memberof module:people'];
     const extendedProperiesLines = [
       ' * @property {number} name',
       ' * @property {number} age',
@@ -173,11 +164,7 @@ describe('features:extendTypes', () => {
     ];
     const propertiesComment = propertiesLines.join('\n');
     const content = 'Some other code';
-    const source = [
-      comment,
-      propertiesComment,
-      content,
-    ].join('\n');
+    const source = [comment, propertiesComment, content].join('\n');
     const events = {
       on: jest.fn(),
     };
@@ -194,13 +181,9 @@ describe('features:extendTypes', () => {
       ' */',
     ].join('\n');
     const emptyBlock = new Array(propertiesLines.length - extendedProperiesLines.length)
-    .fill('')
-    .join('\n');
-    const expectedResult = [
-      newComment,
-      emptyBlock,
-      content,
-    ].join('\n');
+      .fill('')
+      .join('\n');
+    const expectedResult = [newComment, emptyBlock, content].join('\n');
     // When
     sut = new ExtendTypes(events, EVENT_NAMES);
     [[, onComment], [, onCommentsReady]] = events.on.mock.calls;
