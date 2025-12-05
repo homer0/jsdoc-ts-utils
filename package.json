@@ -6,6 +6,7 @@
   "repository": "homer0/jsdoc-ts-utils",
   "author": "Leonardo Apiwan (@homer0) <me@homer0.com>",
   "license": "MIT",
+  "packageManager": "pnpm@10.11.0",
   "keywords": [
     "jsdoc",
     "typescript",
