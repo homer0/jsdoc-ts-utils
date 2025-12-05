@@ -12,7 +12,7 @@ This plugin allows you to take advantage of the [TypeScript](https://www.typescr
 
 The reason this plugin exists is that JSDoc comments as specified by its _convention_ are not 100% compatible with TypeScript, and they don't cover all the cases; sometimes, writing something that is JSDoc valid can end up killing the code completion, and other times, writing something for the code completion can cause invalid code for the JSDoc CLI.
 
-The plugin counts with a few (toggleable) features you can use to write code valid for TypeScript that will also be valid for the JSDoc CLI.
+The plugin counts with a few features you can use to write code valid for TypeScript that will also be valid for the JSDoc CLI.
 
 There are also a few features that are designed to make the code compatible with the [ESLint plugin for JSDoc](https://npmjs.com/package/eslint-plugin-jsdoc), highly recommended if you are getting serious with JSDoc.
 
@@ -61,7 +61,7 @@ Since JSDoc doesn't allow to add configuration options on the `plugins` list, if
 | `typedefImports` | `true` | Whether or not to enable the feature that removes `typedef` statements that use `import`. |
 | `typeOfTypes` | `true` | Whether or not to enable the feature that replaces `{typeof T}` with `{Class.<T>}`. |
 | `extendTypes` | `true` | Whether or not to enable the feature that allows intersections to be reformatted. |
-| `modulesOnMemberOf` | `true` | Whether or not to enable the feature that fixes modules' paths on `memeberof` so they can use dot notation. |
+| `modulesOnMemberOf` | `true` | Whether or not to enable the feature that fixes modules' paths on `memberof` so they can use dot notation. |
 | `modulesTypesShortName` | `true` | Whether or not to register modules types without the module path too. |
 | `parentTag` | `true` | Whether or not to transform all `parent` tags into `memberof`. |
 | `removeTaggedBlocks` | `true` | Whether or not to remove all blocks that have a `@jsdoc-remove` tag. |
@@ -71,7 +71,7 @@ Since JSDoc doesn't allow to add configuration options on the `plugins` list, if
 
 ## Features
 
-### Import type defintions
+### Import type definitions
 
 ```js
 /**
@@ -142,7 +142,7 @@ This is enabled by default but you can disable it with the `typeOfTypes` option.
 
 You can extend an existing type by defining a new one with the new attributes/properties and another one that intersect it with the original.
 
-The feature will find the one with the intersection, look if there's a type that `aguments`/`extends` it, remove the intersection, move the attributes/properties to its own definition and remove the extra definition:
+The feature will find the one with the intersection, look if there's a type that `augments`/`extends` it, remove the intersection, move the attributes/properties to its own definition and remove the extra definition:
 
 ```js
 /**
@@ -158,7 +158,7 @@ The feature will find the one with the intersection, look if there's a type that
  */
 ```
 
-If the feature can't find a type the `aguments`/`extends` the intersection, it will simply transform it into a union.
+If the feature can't find a type the `augments`/`extends` the intersection, it will simply transform it into a union.
 
 > **Note:** You should always define the attributes/properties type after the intersection type, so when the feature removes it, it won't mess up the lines of other definitions on the generated site.
 
@@ -201,7 +201,7 @@ When you add `@memberof` to a type definition, you cannot longer reference the t
 
 This features intercepts the creation of the links for types on the generated site and if the type has the `module:` prefix, it will also register it without the prefix as an alias.
 
-Something similar happens with externals; when you want to reference an external, you need to use `externa:[type]`... yes, the feature takes care of that too.
+Something similar happens with externals; when you want to reference an external, you need to use `external:[type]`... yes, the feature takes care of that too.
 
 This is enabled by default but you can disable it with the `modulesTypesShortName` option.
 
@@ -358,9 +358,9 @@ The configuration file is on `./.jestrc.js`, the tests are on `./tests` and the 
 
 ### Linting && Formatting
 
-I use [ESlint](https://eslint.org) with [my own custom configuration](https://npmjs.com/package/@homer0/eslint-plugin) to validate all the JS code. The configuration file for the project code is on `./.eslintrc` and the one for the tests is on `./tests/.eslintrc`. There's also an `./.eslintignore` to exclude some files on the process. The script that runs it is on `./utils/scripts/lint-all`.
+I use [ESlint](https://eslint.org) with [my own custom configuration](https://npmjs.com/package/@homer0/eslint-plugin) to validate all the JS code. The configuration file for the project code is on `./eslint.config.mjs`. The script that runs it is on `./utils/scripts/lint-all`.
 
-For formatting I use [Prettier](https://prettier.io) with [my custom configuration](https://npmjs.com/package/@homer0/prettier-config). The configuration file for the project code is on `./.prettierrc`.
+For formatting I use [Prettier](https://prettier.io) with [my custom configuration](https://npmjs.com/package/@homer0/prettier-config). The configuration file for the project code is on `./.prettierrc.mjs`.
 
 ### Documentation
 
