@@ -23,7 +23,7 @@ class TSUtilitiesTypes {
      */
     this._typedefFile = null;
     /**
-     * A control flag used when parsing the files in order to know if the defintions were
+     * A control flag used when parsing the files in order to know if the definitions were
      * already added or not.
      *
      * @type {boolean}

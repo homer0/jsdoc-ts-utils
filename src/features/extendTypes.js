@@ -19,7 +19,7 @@
  * transforming the code in two ways:
  * 1. If one of the types of the intersection uses `augments`/`extends` for the intersection type,
  * all its "lines" are moved to the intersection type and it gets removed.
- * 2. If the first scenario is not possible, it trasforms `&` into `|`. Yes, it becomes a union
+ * 2. If the first scenario is not possible, it transforms `&` into `|`. Yes, it becomes a union
  * type, but it's as closer as we can get with pure JSDoc.
  */
 class ExtendTypes {
@@ -38,7 +38,7 @@ class ExtendTypes {
      */
     this._commentsWithIntersections = [];
     /**
-     * A list with the information of comments that extend/agument types with
+     * A list with the information of comments that extend/argument types with
      * intersections.
      *
      * @type {ExtendTypesCommentWithProperties[]}
@@ -51,7 +51,7 @@ class ExtendTypes {
     events.on(EVENT_NAMES.commentsReady, this._replaceComments.bind(this));
   }
   /**
-   * Given a list of types from an instersection definition, this methods tries to find a
+   * Given a list of types from an intersection definition, this methods tries to find a
    * comment that extends one of those types.
    * If the method finds only one comment for a type, it returns it, otherwise, it returns
    * `null`:
