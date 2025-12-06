@@ -28,6 +28,8 @@ jobs:
           HUSKY_SKIP_INSTALL: 1
         run: pnpm install --frozen-lockfile
       - run: pnpm audit signatures
+      - name: Update npm to latest
+        run: npm install -g npm@11.6.2
       - run: pnpm exec semantic-release --debug
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
