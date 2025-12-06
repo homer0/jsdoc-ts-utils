@@ -26,6 +26,7 @@ jobs:
         env:
           HUSKY_SKIP_INSTALL: 1
         run: pnpm install --frozen-lockfile
+      - run: pnpm audit signatures
       - run: pnpm exec semantic-release --debug
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
