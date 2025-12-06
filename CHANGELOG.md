@@ -1,3 +1,20 @@
+# [6.0.0](https://github.com/homer0/jsdoc-ts-utils/compare/5.0.0...6.0.0) (2025-12-06)
+
+
+### Bug Fixes
+
+* add extra publishConfig ([9b9272a](https://github.com/homer0/jsdoc-ts-utils/commit/9b9272a23a2de088564e9b717e6e8d3a83e9077f))
+* drop Node v18 ([4e5505c](https://github.com/homer0/jsdoc-ts-utils/commit/4e5505cc8db970f9e20d66b5448cfdfce7928ef1))
+* make jsdoc a dev dep ([b575408](https://github.com/homer0/jsdoc-ts-utils/commit/b5754088378f6e445f47a2a6c75ba89ad6e0e3d4))
+* update dependencies ([b981e93](https://github.com/homer0/jsdoc-ts-utils/commit/b981e93237bdb9bb19788d257be23cfb47ee7550))
+* update lockfile ([0f16a68](https://github.com/homer0/jsdoc-ts-utils/commit/0f16a687c2ee8321e39f2139946c6545767e7743))
+
+
+### BREAKING CHANGES
+
+* Node v18 is not longer supported. Node v20.19 is the minimum
+required version now.
+
 # [5.0.0](https://github.com/homer0/jsdoc-ts-utils/compare/4.0.0...5.0.0) (2023-10-02)
 
 

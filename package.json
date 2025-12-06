@@ -2,7 +2,7 @@
   "name": "jsdoc-ts-utils",
   "description": "A plugin with utilities to make your TypeScript-like docs JSDoc valid",
   "homepage": "https://github.com/homer0/jsdoc-ts-utils",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/homer0/jsdoc-ts-utils.git"
