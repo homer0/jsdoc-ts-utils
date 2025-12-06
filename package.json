@@ -33,6 +33,10 @@
     "prettier": "^3.7.4",
     "semantic-release": "^25.0.2"
   },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
   "peerDependencies": {
     "jsdoc": "*"
   },
