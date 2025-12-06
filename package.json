@@ -3,7 +3,10 @@
   "description": "A plugin with utilities to make your TypeScript-like docs JSDoc valid",
   "homepage": "https://github.com/homer0/jsdoc-ts-utils",
   "version": "5.0.0",
-  "repository": "homer0/jsdoc-ts-utils",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/homer0/jsdoc-ts-utils.git"
+  },
   "author": "Leonardo Apiwan (@homer0) <me@homer0.com>",
   "license": "MIT",
   "packageManager": "pnpm@10.11.0",
@@ -22,7 +25,7 @@
     "@homer0/prettier-plugin-jsdoc": "^11.0.0",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
-    "docdash": "homer0/docdash#semver:^2.1.2",
+    "docdash": "github:homer0/docdash#semver:^2.1.2",
     "eslint": "^9.39.1",
     "husky": "^9.1.7",
     "is-ci": "^4.1.0",
