@@ -36,14 +36,14 @@
     "prettier": "^3.7.4",
     "semantic-release": "^25.0.2"
   },
+  "peerDependencies": {
+    "jsdoc": "*"
+  },
   "publishConfig": {
     "access": "public",
     "provenance": true,
     "registry": "https://registry.npmjs.org/",
     "tag": "latest"
-  },
-  "peerDependencies": {
-    "jsdoc": "*"
   },
   "engine-strict": true,
   "engines": {
