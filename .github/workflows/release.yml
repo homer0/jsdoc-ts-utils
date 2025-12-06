@@ -21,16 +21,15 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
-          registry-url: 'https://registry.npmjs.org/'
       - run: pnpm install --frozen-lockfile
       - name: Install dependencies
         env:
           HUSKY_SKIP_INSTALL: 1
         run: pnpm install --frozen-lockfile
-      - run: pnpm exec semantic-release
+      - run: pnpm exec semantic-release --debug
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Generate documentation
         run: npm run docs
       - name: Deploy documentation
