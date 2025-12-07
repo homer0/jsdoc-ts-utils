@@ -7,9 +7,6 @@ export default defineConfig([
     ignores: ['tests/**', 'docs/**', '.prettierrc.mjs'],
     configs: ['node-with-prettier', 'jsdoc'],
     addTsParser: false,
-    extraneousDependencies: {
-      devFiles: ['vitest.*.config.js'],
-    },
     sourceType: 'commonjs',
     rules: {
       'jsdoc/check-tag-names': [
